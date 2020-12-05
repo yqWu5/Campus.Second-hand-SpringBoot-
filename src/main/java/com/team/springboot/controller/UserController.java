@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Map;
 
@@ -19,8 +20,8 @@ public class UserController {
     userMapper usermapper;
 
     @RequestMapping("/test")
-    public String showOne(Model m) {
-        User user = usermapper.selectOne(1);
+    public String showOne(Model m,@RequestParam("username") String username) {
+        User user = usermapper.selectOne(username);
         m.addAttribute("user", user);
         return "admin/userInfo";
     }
@@ -33,12 +34,14 @@ public class UserController {
     @PostMapping("/user/login")
     public String loginin(@RequestParam("username") String username,
                           @RequestParam("password") String password,
-                          Map<String, Object> map) {
-        if (username.length() != 0 && password.equals("123456"))
-            return "admin/regist";
+                          ModelAndView m) {
+        String msg = "用户名或密码错误";
+        if (username.length()!=0&&password.equals("123456"))
+            return "redirect:/test";
         else {
-            map.put("message", "用户名或密码错误");
-            return "admin/login";
+            m.addObject("msg",msg);
+
+            return "redirect:/login";
         }
     }
 

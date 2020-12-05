@@ -9,9 +9,9 @@ import org.apache.ibatis.annotations.Update;
 @Mapper
 public interface userMapper {
     @Select("select * from user1 where id = #{id}")
-    User selectOne(int id);
+    User selectOne(String id);
 
 
-    @Update("update user set name = #{name}, email = #{email}, sex = #{sex}, phone = #{phone} where id = #{id}")
+    @Update("update user1 set name = #{name}, email = #{email}, sex = #{sex}, phone = #{phone} where id = #{id}")
     void updateOne(User u);
 }
