@@ -19,26 +19,32 @@ public class UserController {
     userMapper usermapper;
 
     @RequestMapping("/test")
-    public String showOne(Model m){
+    public String showOne(Model m) {
         User user = usermapper.selectOne(1);
-        m.addAttribute("user",user);
+        m.addAttribute("user", user);
         return "admin/userInfo";
     }
+
     @RequestMapping("/login")
-    public String login(){
+    public String login() {
         return "admin/login";
     }
 
     @PostMapping("/user/login")
     public String loginin(@RequestParam("username") String username,
                           @RequestParam("password") String password,
-                          Map<String,Object> map){
-        if(username.length()!=0&&password.equals("123456"))
+                          Map<String, Object> map) {
+        if (username.length() != 0 && password.equals("123456"))
             return "admin/regist";
         else {
             map.put("message", "用户名或密码错误");
             return "admin/login";
         }
+    }
 
+    @RequestMapping("/update")
+    public String updateOne(User u) {
+        usermapper.updateOne(u);
+        return "admin/userInfo";
     }
 }
