@@ -69,7 +69,7 @@
         <!-- 内容主体区域 -->
         <div style="padding: 15px;">
             <div class=""><!-- 个人信息 -->
-            <form class="layui-form" th:action="@{/update}" method="post">
+            <div class="layui-form" >
                 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
                     <legend>个人信息</legend>
                 </fieldset>
@@ -77,7 +77,7 @@
                     <div class="layui-inline">
                         <label class="layui-form-label">账号:</label>
                         <div class="layui-input-inline">
-                            <input th:value="${user.u_Account}" type="text" name="u_Account" autocomplete="off" class="layui-input">
+                            <input th:value="${user.u_Account}" type="text" name="u_Account" readonly autocomplete="off" class="layui-input">
                         </div>
                     </div>
 
@@ -109,19 +109,18 @@
                     <div class="layui-inline">
                         <label class="layui-form-label">性别:</label>
                         <div class="layui-input-inline">
-                          <input type="radio" name="sex" value="nan" title="男" checked>
-                          <input type="radio" name="sex" value="女" title="女">
+                          <input type="radio" name="u_Sex" value="nan" title="男" checked>
+                          <input type="radio" name="u_Sex" value="女" title="女">
                         </div>
                     </div>
                 </div>
 
               <div class="layui-form-item">
                 <label class="layui-form-label"> 
-                  <button type="sumbit" class="layui-btn layui-btn-radius">保存</button>
+                  <button lay-submit lay-filter="userInfo" class="layui-btn layui-btn-radius">保存</button>
                 </label>
               </div>
-
-            </form>
+            </div>
             </div>
 
             <div class=""> <!-- 收货地址 -->
@@ -216,10 +215,35 @@
 <script th:src="@{/layui/layui.js}"></script>
 <script>
     //JavaScript代码区域
-    layui.use(['element','form'], function(){
-        var element = layui.element;
-        var form = layui.form;
+    layui.use(['element','form','layer'], function(){
+        const element = layui.element;
+        const form = layui.form;
+        const layer = layui.layer;
+        const $ = layui.$;
         form.render();
+
+        form.on('submit(userInfo)', function(data){
+            const field = data.field;
+            console.log(field);
+            $.ajax({
+                url: 'userUpdate',
+                type: 'POST',
+                contentType: "application/json;charset=utf-8",
+                data: JSON.stringify(field),
+                success:function (res){
+                    if(res.code === 200){
+                        console.log(res.code)
+                        layer.msg('更新成功');
+                    }else if(res.code === 500){
+                        layer.msg('更新失败！错误:500');
+                    }
+                },
+                error: function (res){
+                    layer.msg('更新失败！');
+                }
+            });
+        });
+
     });
 
 </script>

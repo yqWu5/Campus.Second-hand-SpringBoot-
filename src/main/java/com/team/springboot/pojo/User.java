@@ -69,4 +69,5 @@ public class User {
         this.u_Sex = u_Sex;
         this.u_Phone = u_Phone;
     }
+
 }
