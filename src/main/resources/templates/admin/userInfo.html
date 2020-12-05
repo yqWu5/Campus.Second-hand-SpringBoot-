@@ -76,14 +76,14 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">ID:</label>
                     <div class="layui-input-inline">
-                        <input th:text="${user.id}" type="text" name="id" autocomplete="off" class="layui-input">
+                        <input th:value="${user.id}" type="text" name="id" autocomplete="off" class="layui-input">
                     </div>
                 </div>
 
                 <div class="layui-inline">
                     <label class="layui-form-label">姓名:</label>
                     <div class="layui-input-inline">
-                        <input th:text="${user.name}" type="text" name="name" autocomplete="off" class="layui-input">
+                        <input th:value="${user.name}" type="text" name="name" autocomplete="off" class="layui-input">
                     </div>
                 </div>
             </div>
@@ -92,14 +92,14 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">邮箱:</label>
                     <div class="layui-input-inline">
-                        <input th:text="${user.email}" type="text" name="email" autocomplete="off" class="layui-input">
+                        <input th:value="${user.email}" type="text" name="email" autocomplete="off" class="layui-input">
                     </div>
                 </div>
 
                 <div class="layui-inline">
                     <label class="layui-form-label">电话号码:</label>
                     <div class="layui-input-inline">
-                        <input type="text" th:text="${user.phone}" name="phone" autocomplete="off" class="layui-input">
+                        <input type="text" th:value="${user.phone}" name="phone" autocomplete="off" class="layui-input">
                     </div>
                 </div>
             </div>
