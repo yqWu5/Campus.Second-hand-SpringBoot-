@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>注册</title>
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}">
+    <link rel="stylesheet" th:href="@{layui/css/login.css}">
+</head>
+<body>
+<div class="login-main">
+    <header class="layui-elip">用户注册</header>
+    <form class="layui-form" action="/login" method="post">
+        <div class="layui-input-inline">
+            <label>
+                <input type="text" id="user" name="name" required placeholder="用户名" class="layui-input">
+            </label>
+        </div>
+        <div class="layui-input-inline">
+            <label>
+                <input type="password" id="pwd"name="password" required  placeholder="密码" class="layui-input">
+            </label>
+        </div>
+        <div class="layui-input-inline">
+            <label>
+                <input type="password" id="repwd" name="password" required  placeholder="确认密码" class="layui-input">
+            </label>
+        </div>
+        <div class="layui-input-inline login-btn">
+            <button class="layui-btn">注册</button>
+        </div>
+        <hr/>
+    </form>
+</div>
+<script th:src="@{/layui/layui.js}"></script>
+</body>
+</html>
