@@ -5,10 +5,15 @@ import com.team.springboot.mapper.userMapper;
 import com.team.springboot.pojo.BaseResponse;
 import com.team.springboot.pojo.User;
 
+import com.team.springboot.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+
+
+import javax.servlet.http.HttpSession;
 
 
 @Controller
@@ -16,14 +21,18 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     @Autowired
-    userMapper usermapper;
+    UserService userService;
 
     @RequestMapping("/userInfo")
     public String showOne(Model m) {
-        User user = usermapper.selectOne(1877000203);
+
+        User user = userService.selectOne(1877000203);
+
+
         m.addAttribute("user", user);
         return "admin/userInfo";
     }
+
 
     @RequestMapping(value = "/userUpdate", method = {RequestMethod.POST})
     @ResponseBody
@@ -34,8 +43,9 @@ public class UserController {
             baseResponse.setCode(500);  // 前端所传内容不符合要求
         }else{
             baseResponse.setCode(200);
-            usermapper.updateOne(u);
+            userService.updateOne(u);
         }
+
 
         return baseResponse;
     }
