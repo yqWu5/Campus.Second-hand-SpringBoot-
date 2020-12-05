@@ -20,7 +20,7 @@ public class UserController {
 
     @RequestMapping("/test")
     public String showOne(Model m) {
-        User user = usermapper.selectOne(1);
+        User user = usermapper.selectOne(1877000203);
         m.addAttribute("user", user);
         return "admin/userInfo";
     }

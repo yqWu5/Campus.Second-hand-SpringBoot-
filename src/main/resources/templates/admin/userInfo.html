@@ -74,16 +74,16 @@
             </fieldset>
             <div class="layui-form-item">
                 <div class="layui-inline">
-                    <label class="layui-form-label">ID:</label>
+                    <label class="layui-form-label">账号:</label>
                     <div class="layui-input-inline">
-                        <input th:value="${user.id}" type="text" name="id" autocomplete="off" class="layui-input">
+                        <input th:value="${user.u_Account}" type="text" name="u_Account" autocomplete="off" class="layui-input">
                     </div>
                 </div>
 
                 <div class="layui-inline">
-                    <label class="layui-form-label">姓名:</label>
+                    <label class="layui-form-label">用户名:</label>
                     <div class="layui-input-inline">
-                        <input th:value="${user.name}" type="text" name="name" autocomplete="off" class="layui-input">
+                        <input th:value="${user.u_Name}" type="text" name="u_Name" autocomplete="off" class="layui-input">
                     </div>
                 </div>
             </div>
@@ -92,19 +92,22 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">邮箱:</label>
                     <div class="layui-input-inline">
-                        <input th:value="${user.email}" type="text" name="email" autocomplete="off" class="layui-input">
+                        <input th:value="${user.u_Email}" type="text" name="u_Email" autocomplete="off" class="layui-input">
                     </div>
                 </div>
 
                 <div class="layui-inline">
                     <label class="layui-form-label">电话号码:</label>
                     <div class="layui-input-inline">
-                        <input type="text" th:value="${user.phone}" name="phone" autocomplete="off" class="layui-input">
+                        <input type="text" th:value="${user.u_Phone}" name="u_Phone" autocomplete="off" class="layui-input">
                     </div>
                 </div>
             </div>
 
-                <input type="submit" value="更新" />
+            <div class="layui-form-item">
+                <input class="layui-btn" type="submit" value="更新" />
+            </div>
+
             </form>
 
         </div>
