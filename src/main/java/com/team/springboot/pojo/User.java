@@ -2,71 +2,71 @@ package com.team.springboot.pojo;
 
 
 public class User {
-    private int id;
-    private String name;
-    private String password;
-    private String email;
-    private String sex;
-    private String phone;
+    private int u_Account;
+    private String u_Name;
+    private String u_Password;
+    private String u_Email;
+    private String u_Sex;
+    private String u_Phone;
 
-    public int getId() {
-        return id;
+    public int getU_Account() {
+        return u_Account;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setU_Account(int u_Account) {
+        this.u_Account = u_Account;
     }
 
-    public String getName() {
-        return name;
+    public String getU_Name() {
+        return u_Name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setU_Name(String u_Name) {
+        this.u_Name = u_Name;
     }
 
-    public String getPassword() {
-        return password;
+    public String getU_Password() {
+        return u_Password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setU_Password(String u_Password) {
+        this.u_Password = u_Password;
     }
 
-    public String getEmail() {
-        return email;
+    public String getU_Email() {
+        return u_Email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setU_Email(String u_Email) {
+        this.u_Email = u_Email;
     }
 
-    public String getSex() {
-        return sex;
+    public String getU_Sex() {
+        return u_Sex;
     }
 
-    public void setSex(String sex) {
-        this.sex = sex;
+    public void setU_Sex(String u_Sex) {
+        this.u_Sex = u_Sex;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getU_Phone() {
+        return u_Phone;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setU_Phone(String u_Phone) {
+        this.u_Phone = u_Phone;
     }
 
     public User() {
 
     }
 
-    public User(int id, String name, String password, String email, String sex, String phone) {
-        this.id = id;
-        this.name = name;
-        this.password = password;
-        this.email = email;
-        this.sex = sex;
-        this.phone = phone;
+    public User(int u_Account, String u_Name, String u_Password, String u_Email, String u_Sex, String u_Phone) {
+        this.u_Account = u_Account;
+        this.u_Name = u_Name;
+        this.u_Password = u_Password;
+        this.u_Email = u_Email;
+        this.u_Sex = u_Sex;
+        this.u_Phone = u_Phone;
     }
 }
