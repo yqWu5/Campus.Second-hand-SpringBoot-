@@ -20,4 +20,10 @@ public class UserController {
         m.addAttribute("user",user);
         return "admin/userInfo";
     }
+
+    @RequestMapping("/update")
+    public String updateOne(User u){
+        usermapper.updateOne(u);
+        return "admin/userInfo";
+    }
 }
