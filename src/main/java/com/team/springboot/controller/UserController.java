@@ -90,5 +90,9 @@ public class UserController {
         baseResponse.setCode(200);
         return baseResponse;
     }
-
+    @RequestMapping("/quit")
+    public String quit(HttpSession session){
+        session.invalidate();
+        return "redirect:/login";
+    }
 }

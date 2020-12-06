@@ -24,6 +24,10 @@ public class SignInController {
     public String loginin(@RequestParam("u_Account") String account,
                           @RequestParam("u_Password") String password,
                           HttpSession session) {
+        if(userService.selectUserById(account)==null){
+            session.setAttribute("msg","用户名或密码错误");
+            return "redirect:/login";
+        }
         if(userService.selectUserById(account).getU_Password().equals(password)){
             session.setAttribute("u_Account",account);
             return "redirect:/admin/userInfo";
