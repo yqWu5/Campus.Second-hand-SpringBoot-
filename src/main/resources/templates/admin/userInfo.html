@@ -202,7 +202,8 @@
                 </div>
 
               <div class="layui-form-item">
-                <label class="layui-form-label"> 
+                <label class="layui-form-label"/>
+                <label class="layui-form-label"/>
                   <button lay-submit lay-filter="passwordUpdate" class="layui-btn layui-btn-radius">修改密码</button>
                 </label>
               </div>
@@ -235,14 +236,13 @@
                 data: JSON.stringify(field),
                 success:function (res){
                     if(res.code === 200){
-                        console.log(res.code)
-                        layer.msg('更新成功');
+                        layer.msg(res.msg);
                     }else if(res.code === 500){
-                        layer.msg('更新失败！错误:500');
+                        layer.msg(res.msg);
                     }
                 },
                 error: function (res){
-                    layer.msg('更新失败！');
+                    layer.msg('请求出错！');
                 }
             });
             window.setTimeout("toAdmin()" ,1500); <!-- 转跳 -->
@@ -258,13 +258,13 @@
                 data: JSON.stringify(field),
                 success: function (res){
                     if(res.code === 200){
-                        layer.msg('修改成功');
+                        layer.msg(res.msg);
                     }else if(res.code === 500){
                         layer.msg(res.msg);
                     }
                 },
                 error: function (res){
-                    layer.msg('修改失败！');
+                    layer.msg('请求出错！');
                 }
             });
             window.setTimeout("toAdmin()" ,1500); <!-- 转跳 -->
@@ -280,13 +280,13 @@
                 data: JSON.stringify(field),
                 success: function (res){
                     if(res.code === 200){
-                        layer.msg('修改成功');
+                        layer.msg(res.msg);
                     }else if(res.code === 500){
                         layer.msg(res.msg);
                     }
                 },
                 error: function (res){
-                    layer.msg('修改失败！');
+                    layer.msg('请求出错！');
                 }
             });
             window.setTimeout("toAdmin()" ,1500); <!-- 转跳 -->

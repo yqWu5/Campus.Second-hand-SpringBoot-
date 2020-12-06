@@ -35,5 +35,4 @@ public interface userMapper {
     @Update("update user set u_Password = #{u_Password} where u_Account = #{u_Account}")
     void updatePwd(User u);
 
-
 }

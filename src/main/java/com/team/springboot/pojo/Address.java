@@ -8,6 +8,11 @@ public class Address {
     private String a_Address3;
     private String a_Address4;
 
+    @Override
+    public String toString() {
+        return "a_Address1:" + this.getA_Address1() + " a_Address2:" + this.getA_Address2() + " a_Address3:" + this.getA_Address2() + " a_Address4:" + this.getA_Address4();
+    }
+
     public String getA_Address1() {
         return a_Address1;
     }

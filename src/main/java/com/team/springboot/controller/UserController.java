@@ -1,7 +1,6 @@
 package com.team.springboot.controller;
 
-import com.google.gson.Gson;
-import com.team.springboot.mapper.userMapper;
+
 import com.team.springboot.pojo.Address;
 import com.team.springboot.pojo.BaseResponse;
 import com.team.springboot.pojo.Password;
@@ -14,7 +13,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -45,13 +43,16 @@ public class UserController {
 
         if(u.getU_Phone().length() < 11 || u.getU_Name() == "" || u.getU_Email().indexOf("@") == -1){
             baseResponse.setCode(500);  // 前端所传内容不符合要求
+            baseResponse.setMsg("保存失败");
         }else{
             baseResponse.setCode(200);
+            baseResponse.setMsg("保存成功！");
             userService.updateUser(u);
         }
 
         return baseResponse;
     }
+
     // 更改密码
     @RequestMapping("/passwordUpdate")
     @ResponseBody
@@ -88,10 +89,12 @@ public class UserController {
         //修改成功
         userService.updatePassword(pojo);
         baseResponse.setCode(200);
+        baseResponse.setMsg("修改成功！");
         return baseResponse;
 
 
     }
+
     // 退出登录
     @RequestMapping("/quit")
     public String quit(HttpSession session){
