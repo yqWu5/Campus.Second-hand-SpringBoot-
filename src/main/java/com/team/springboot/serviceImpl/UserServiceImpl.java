@@ -12,13 +12,23 @@ public class UserServiceImpl implements UserService {
     userMapper usermapper;
 
     @Override
-    public User selectOne(int id) {
+    public User selectOne(String id) {
         return usermapper.selectOne(id);
     }
 
     @Override
     public void updateOne(User u) {
         usermapper.updateOne(u);
+    }
+
+    @Override
+    public void insertOne(User u) {
+        usermapper.insertOne(u);
+    }
+
+    @Override
+    public void updatePwd(User u) {
+        usermapper.updatePwd(u);
     }
 
 

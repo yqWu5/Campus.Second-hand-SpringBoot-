@@ -22,9 +22,10 @@ public class SignInFilter implements Filter {
         HttpServletRequest req=(HttpServletRequest)servletRequest;
         HttpServletResponse resp=(HttpServletResponse)servletResponse;
         HttpSession session = req.getSession();
-        if(req.getRequestURL().indexOf("login")!=-1||req.getRequestURL().indexOf("regist")!=-1||req.getRequestURL().indexOf("layui")!=-1)
-          filterChain.doFilter(servletRequest, servletResponse);
-        else if(session.getAttribute("username")==null) {
+        if(req.getRequestURL().indexOf("login")!=-1||req.getRequestURL().indexOf("regist")!=-1||req.getRequestURL().indexOf("layui")!=-1||req.getRequestURL().indexOf("repwd")!=-1) {
+            filterChain.doFilter(servletRequest, servletResponse);
+        }
+        else if(session.getAttribute("u_Account")==null) {
             session.setAttribute("msg","没有权限，请先登录");
             resp.sendRedirect(req.getContextPath() + "/login");
         }

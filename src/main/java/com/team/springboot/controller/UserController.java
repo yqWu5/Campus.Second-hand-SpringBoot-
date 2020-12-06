@@ -11,8 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-
-
 import javax.servlet.http.HttpSession;
 
 
@@ -24,30 +22,29 @@ public class UserController {
     UserService userService;
 
     @RequestMapping("/userInfo")
-    public String showOne(Model m) {
-
-        User user = userService.selectOne(1877000203);
-
-
+    public String showOne(Model m, HttpSession session) {
+        User user = userService.selectOne(String.valueOf(session.getAttribute("u_Account")));
         m.addAttribute("user", user);
         return "admin/userInfo";
     }
-
 
     @RequestMapping(value = "/userUpdate", method = {RequestMethod.POST})
     @ResponseBody
     public BaseResponse updateOne(@RequestBody User u) {
         BaseResponse<Integer> baseResponse = new BaseResponse<Integer>();
-
         if(u.getU_Phone().length() < 11 || u.getU_Name() == null || u.getU_Email().indexOf("@") == -1){
             baseResponse.setCode(500);  // 前端所传内容不符合要求
         }else{
             baseResponse.setCode(200);
             userService.updateOne(u);
         }
-
-
         return baseResponse;
+    }
+
+    @RequestMapping("/quit")
+    public String exit(HttpSession session){
+        session.invalidate();
+        return "redirect:/login";
     }
 
 
