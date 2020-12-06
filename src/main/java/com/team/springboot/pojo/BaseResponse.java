@@ -1,5 +1,7 @@
 package com.team.springboot.pojo;
 
+
+// 状态码类
 public class BaseResponse<T> {
     private int code;
     private String msg;

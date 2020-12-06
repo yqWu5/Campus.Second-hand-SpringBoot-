@@ -163,14 +163,15 @@
                         </div>
                     </div>
                 </div>
-              <div class="layui-form-item">
-                <label class="layui-form-label"> 
-                  <button type="sumbit" class="layui-btn layui-btn-radius">保存</button>
-                </label>
-              </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+                        <button lay-submit lay-filter="addressUpdate" class="layui-btn layui-btn-radius">保存</button>
+                    </label>
+                </div>
             </div>
 
-            <div class="layui-form"><!-- 密码管理 -->
+            <form class="layui-form"><!-- 密码管理 -->
                 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
                     <legend>密码管理</legend>
                 </fieldset>
@@ -205,7 +206,7 @@
                   <button lay-submit lay-filter="passwordUpdate" class="layui-btn layui-btn-radius">修改密码</button>
                 </label>
               </div>
-            </div>
+            </form>
         </div>
     </div>
 
@@ -270,6 +271,27 @@
             return false;
         });
 
+        form.on('submit(addressUpdate)',function (data){ <!-- 收货地址更改 -->
+            const field = data.field;
+            $.ajax({
+                url: 'addressUpdate',
+                type: 'POST',
+                contentType: "application/json;charset=utf-8",
+                data: JSON.stringify(field),
+                success: function (res){
+                    if(res.code === 200){
+                        layer.msg('修改成功');
+                    }else if(res.code === 500){
+                        layer.msg(res.msg);
+                    }
+                },
+                error: function (res){
+                    layer.msg('修改失败！');
+                }
+            });
+            window.setTimeout("toAdmin()" ,1500); <!-- 转跳 -->
+            return false;
+        });
     });
 
     function toAdmin(){ <!-- 转跳 -->
