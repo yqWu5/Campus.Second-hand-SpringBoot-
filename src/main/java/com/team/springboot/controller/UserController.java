@@ -89,6 +89,14 @@ public class UserController {
         userService.updatePassword(pojo);
         baseResponse.setCode(200);
         return baseResponse;
+
+
+    }
+
+    @RequestMapping("/quit")
+    public String quit(HttpSession session){
+        session.invalidate();
+        return "redirect:/login";
     }
 
 }
