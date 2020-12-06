@@ -92,7 +92,7 @@ public class UserController {
 
 
     }
-
+    // 退出登录
     @RequestMapping("/quit")
     public String quit(HttpSession session){
         session.invalidate();
