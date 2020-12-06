@@ -27,9 +27,10 @@ public class UserController {
     UserService userService;
 
     @RequestMapping("/userInfo")
-    public String showUserInfo(Model m) {
-        User user = userService.selectUserById("1001");
-        List<Address> list = userService.selectAddressAll("1001");
+    public String showUserInfo(Model m, HttpSession session) {
+        String account = (String) session.getAttribute("u_Account");
+        User user = userService.selectUserById(account);
+        List<Address> list = userService.selectAddressAll(account);
 
         m.addAttribute("user", user);
         m.addAttribute("addressList",list);

@@ -28,13 +28,13 @@ public class RegistController {
     @ResponseBody
     public BaseResponse registerAdd(@RequestBody User u){
         BaseResponse<Integer> baseResponse = new BaseResponse<Integer>();
-        if(userService.selectOne(u.getU_Account()) != null){
+        if(userService.selectUserById(u.getU_Account()) != null){
             baseResponse.setCode(400);
             baseResponse.setMsg("用户名已存在");
             return baseResponse;
         }
         userService.insertOne(u);
-        if(userService.selectOne(u.getU_Account()) != null){
+        if(userService.selectUserById(u.getU_Account()) != null){
             baseResponse.setCode(200);
             baseResponse.setMsg("注册成功");
         }

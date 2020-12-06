@@ -16,8 +16,8 @@ public class UserServiceImpl implements UserService {
     userMapper usermapper;
 
     @Override
-    public User selectUserById(String id) {
-        return usermapper.selectUserById(id);
+    public User selectUserById(String u_Account) {
+        return usermapper.selectUserById(u_Account);
     }
 
     @Override
@@ -38,5 +38,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<Address> selectAddressAll(String a_Account) {
         return usermapper.selectAddressAll(a_Account);
+    }
+
+    @Override
+    public void insertOne(User u) {
+        usermapper.insertOne(u);
+    }
+
+    @Override
+    public void updatePwd(User u) {
+        usermapper.updatePwd(u);
     }
 }

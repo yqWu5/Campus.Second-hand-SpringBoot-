@@ -29,12 +29,15 @@ public class RepasswordController {
     public BaseResponse checkEmail(@RequestBody User u,
                                    HttpSession session){
         BaseResponse<Integer> baseResponse = new BaseResponse<Integer>();
-        if(userService.selectOne(u.getU_Account())==null){
+        String acc=u.getU_Account();
+        User us = userService.selectUserById(acc);
+        if(us == null){
             baseResponse.setCode(500);
             baseResponse.setMsg("验证失败");
             return baseResponse;
         }
-        if(userService.selectOne(u.getU_Account()).getU_Email().equals(u.getU_Email())){
+
+        if(userService.selectUserById(u.getU_Account()).getU_Email().equals(u.getU_Email())){
             session.setAttribute("ID",u.getU_Account());
             baseResponse.setCode(200);
             baseResponse.setMsg("验证通过");
@@ -58,7 +61,7 @@ public class RepasswordController {
         BaseResponse<Integer> baseResponse = new BaseResponse<Integer>();
         u.setU_Account(String.valueOf(session.getAttribute("ID")));
         userService.updatePwd(u);
-        if(userService.selectOne(u.getU_Account()).getU_Password().equals(u.getU_Password())){
+        if(userService.selectUserById(u.getU_Account()).getU_Password().equals(u.getU_Password())){
             baseResponse.setCode(200);
             baseResponse.setMsg("修改通过");
             return baseResponse;
