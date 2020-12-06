@@ -29,9 +29,7 @@ public class RepasswordController {
     public BaseResponse checkEmail(@RequestBody User u,
                                    HttpSession session){
         BaseResponse<Integer> baseResponse = new BaseResponse<Integer>();
-        String acc=u.getU_Account();
-        User us = userService.selectUserById(acc);
-        if(us == null){
+        if(userService.selectUserById(u.getU_Account()) == null){
             baseResponse.setCode(500);
             baseResponse.setMsg("验证失败");
             return baseResponse;

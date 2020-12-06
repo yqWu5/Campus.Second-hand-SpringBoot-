@@ -1,7 +1,5 @@
 package com.team.springboot.filter;
 
-import org.springframework.ui.Model;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -10,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebFilter(urlPatterns = "/login",filterName = "logFilter")
+@WebFilter(urlPatterns = "/*",filterName = "logFilter")
 public class SignInFilter implements Filter {
 
     @Override
@@ -30,7 +28,7 @@ public class SignInFilter implements Filter {
             resp.sendRedirect(req.getContextPath() + "/login");
         }
         else
-        filterChain.doFilter(servletRequest, servletResponse);
+            filterChain.doFilter(servletRequest, servletResponse);
     }
 
     @Override

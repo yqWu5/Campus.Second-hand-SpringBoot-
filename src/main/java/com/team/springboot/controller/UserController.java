@@ -1,6 +1,7 @@
 package com.team.springboot.controller;
 
-
+import com.google.gson.Gson;
+import com.team.springboot.mapper.userMapper;
 import com.team.springboot.pojo.Address;
 import com.team.springboot.pojo.BaseResponse;
 import com.team.springboot.pojo.Password;
@@ -13,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -24,7 +26,6 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    //后台管理初始化
     @RequestMapping("/userInfo")
     public String showUserInfo(Model m, HttpSession session) {
         String account = (String) session.getAttribute("u_Account");
@@ -36,9 +37,9 @@ public class UserController {
         return "admin/userInfo";
     }
 
-    // 更新用户信息
+
     @RequestMapping(value = "/userUpdate", method = {RequestMethod.POST})
-    @ResponseBody
+    @ResponseBody // 更新用户信息
     public BaseResponse updateUserInfo(@RequestBody User u) {
         BaseResponse<Integer> baseResponse = new BaseResponse<Integer>();
 
@@ -52,12 +53,11 @@ public class UserController {
         return baseResponse;
     }
 
-    // 更改密码
     @RequestMapping("/passwordUpdate")
-    @ResponseBody
-    public BaseResponse updatePassword(@RequestBody Password pojo, HttpSession session){
+    @ResponseBody // 更改密码
+    public BaseResponse updatePassword(@RequestBody Password pojo){
         BaseResponse<Integer> baseResponse = new BaseResponse<Integer>();
-        pojo.setU_Account((String) session.getAttribute("u_Account"));
+        pojo.setU_Account("1001");
         String u_Account = pojo.getU_Account();
         String rightPassword = userService.selectPasswordById(u_Account); //通过账号查询正确的密码
 
@@ -88,14 +88,6 @@ public class UserController {
         //修改成功
         userService.updatePassword(pojo);
         baseResponse.setCode(200);
-        return baseResponse;
-    }
-
-    @RequestMapping("/addressUpdate")
-    @ResponseBody
-    public BaseResponse addressUpdate(@RequestBody Password p){
-        BaseResponse<Integer> baseResponse = new BaseResponse<Integer>();
-
         return baseResponse;
     }
 
