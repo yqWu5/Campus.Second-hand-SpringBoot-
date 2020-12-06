@@ -22,7 +22,7 @@ public class SignInController {
         if (username.length() != 0 && password.equals("123456")){
             session.setAttribute("username",username);
             session.setAttribute("password",password);
-            return "redirect:/test";
+            return "redirect:admin/userInfo";
         }
         else {
             session.setAttribute("msg","用户名或密码错误");

@@ -6,15 +6,12 @@
     <link rel="stylesheet" th:href="@{/layui/css/layui.css}">
     <link rel="stylesheet" th:href="@{/layui/css/login.css}">
 </head>
-<body>
+<div>
 <div class="login-main">
     <header class="layui-elip">登录</header>
-
-    <p th:text="${msg}" style="color: red" ></p>
-
     <p th:text="${session.msg}" style="color: #ff0000"></p>
 
-    </div>
+
     <form class="layui-form" th:action="@{user/login}" method="post">
         <div class="layui-input-inline">
             <label>
@@ -33,7 +30,7 @@
         <p><a href="regist" class="fl">立即注册</a><a href="reset_pwd.jsp" class="fr">忘记密码？</a></p>
     </form>
 </div>
-
+</div>
 
 <script th:src="@{/layui/layui.js}"></script>
 </body>

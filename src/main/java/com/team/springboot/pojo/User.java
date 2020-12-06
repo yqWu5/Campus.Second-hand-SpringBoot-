@@ -2,18 +2,18 @@ package com.team.springboot.pojo;
 
 
 public class User {
-    private int u_Account;
+    private String u_Account;
     private String u_Name;
     private String u_Password;
     private String u_Email;
     private String u_Sex;
     private String u_Phone;
 
-    public int getU_Account() {
+    public String getU_Account() {
         return u_Account;
     }
 
-    public void setU_Account(int u_Account) {
+    public void setU_Account(String u_Account) {
         this.u_Account = u_Account;
     }
 
@@ -61,7 +61,7 @@ public class User {
 
     }
 
-    public User(int u_Account, String u_Name, String u_Password, String u_Email, String u_Sex, String u_Phone) {
+    public User(String u_Account, String u_Name, String u_Password, String u_Email, String u_Sex, String u_Phone) {
         this.u_Account = u_Account;
         this.u_Name = u_Name;
         this.u_Password = u_Password;
