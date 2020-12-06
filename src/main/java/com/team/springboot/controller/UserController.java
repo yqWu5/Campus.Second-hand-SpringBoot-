@@ -25,7 +25,7 @@ public class UserController {
 
     @Autowired
     UserService userService;
-
+    //后台初始化
     @RequestMapping("/userInfo")
     public String showUserInfo(Model m, HttpSession session) {
         String account = (String) session.getAttribute("u_Account");
@@ -37,9 +37,9 @@ public class UserController {
         return "admin/userInfo";
     }
 
-
+    // 更新用户信息
     @RequestMapping(value = "/userUpdate", method = {RequestMethod.POST})
-    @ResponseBody // 更新用户信息
+    @ResponseBody
     public BaseResponse updateUserInfo(@RequestBody User u) {
         BaseResponse<Integer> baseResponse = new BaseResponse<Integer>();
 
@@ -52,9 +52,9 @@ public class UserController {
 
         return baseResponse;
     }
-
+    // 更改密码
     @RequestMapping("/passwordUpdate")
-    @ResponseBody // 更改密码
+    @ResponseBody
     public BaseResponse updatePassword(@RequestBody Password pojo){
         BaseResponse<Integer> baseResponse = new BaseResponse<Integer>();
         pojo.setU_Account("1001");
