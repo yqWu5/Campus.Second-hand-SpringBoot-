@@ -1,12 +1,11 @@
 package com.team.springboot.controller;
 
 
-import com.mysql.jdbc.StringUtils;
-import com.team.springboot.mapper.UserAddressMapper;
-import com.team.springboot.pojo.*;
+import com.team.springboot.pojo.Address;
+import com.team.springboot.pojo.BaseResponse;
+import com.team.springboot.pojo.Password;
+import com.team.springboot.pojo.User;
 
-import com.team.springboot.service.AddressService;
-import com.team.springboot.service.UserAddressService;
 import com.team.springboot.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,21 +23,15 @@ public class UserController {
 
     @Autowired
     UserService userService;
-
-    @Autowired
-    AddressService addressService;
     //后台初始化
     @RequestMapping("/userInfo")
     public String showUserInfo(Model m, HttpSession session) {
         String account = (String) session.getAttribute("u_Account");
         User user = userService.selectUserById(account);
-        Address addr= userService.selectAddressAll(account);
+        List<Address> list = userService.selectAddressAll(account);
+
         m.addAttribute("user", user);
-        if(addr==null) {
-            addressService.insertAddressOne(account,"无","无","无","无");
-            addr= userService.selectAddressAll(account);
-        }
-        m.addAttribute("addressList",addr);
+        m.addAttribute("addressList",list);
         return "admin/userInfo";
     }
 
@@ -98,42 +91,8 @@ public class UserController {
         baseResponse.setCode(200);
         baseResponse.setMsg("修改成功！");
         return baseResponse;
-    }
 
-    //寻找用户管理网页
-    @RequestMapping("/userinit")
-    public String userinit(){
-        return "admin/user";
-    }
 
-    //生成用户表
-    @RequestMapping("/userdata")
-    @ResponseBody
-    public BaseResponse userData (@RequestParam String page,
-                                     @RequestParam String limit,
-                                     HttpSession session){
-        List<User>users;
-        User u;
-        BaseResponse<List<User>> baseResponse = new BaseResponse<>();
-        if(session.getAttribute("u_Account").equals("admin")) {
-            users = userService.selectUserAll(StringUtils.isNullOrEmpty(page) ? 1 : Integer.valueOf(page),
-                    StringUtils.isNullOrEmpty(limit) ? 10 : Integer.valueOf(limit));
-            baseResponse.setCount(userService.selectCount());
-        }
-        else{
-            users=userService.selectUserByIdrtlist((String) session.getAttribute("u_Account"));
-            baseResponse.setCount(1);
-            }
-        if(users!=null){
-            baseResponse.setCode(200);
-            baseResponse.setMsg("请求成功");
-            baseResponse.setData(users);
-        }
-        else{
-            baseResponse.setCode(500);
-            baseResponse.setMsg("请求失败");
-        }
-        return baseResponse;
     }
 
     // 退出登录

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+    <title>校园二手物品后台</title>
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}"/>
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+    <div class="layui-header">
+        <div class="layui-logo">校园二手物品后台</div>
+        <!-- 头部区域（可配合layui已有的水平导航） -->
+        <ul class="layui-nav layui-layout-left">
+            <li class="layui-nav-item"><a href="">控制台</a></li>
+            <li class="layui-nav-item"><a href="">商品管理</a></li>
+            <li class="layui-nav-item">
+                <a href="javascript:;">订单管理</a>
+                <dl class="layui-nav-child">
+                    <dd><a th:href="@{/admin/BuyOrderInit}">买入-订单</a></dd>
+                    <dd><a th:href="@{/admin/SellOrderInit}">出售-订单</a></dd>
+                </dl>
+            </li>
+        </ul>
+        <ul class="layui-nav layui-layout-right">
+            <li class="layui-nav-item">
+                <a href="javascript:">
+                    我的
+                </a>
+                <dl class="layui-nav-child">
+                    <dd><a href="">基本资料</a></dd>
+                    <dd><a href="">安全设置</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item"><a href="/admin/quit">退了</a></li>
+        </ul>
+    </div>
+
+    <div class="layui-side layui-bg-black">
+        <div class="layui-side-scroll">
+            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+            <ul class="layui-nav layui-nav-tree"  lay-filter="test">
+                <li class="layui-nav-item layui-nav-itemed">
+                    <a class="" href="javascript:;">所有商品</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;">列表一</a></dd>
+                        <dd><a href="javascript:;">列表二</a></dd>
+                        <dd><a href="javascript:;">列表三</a></dd>
+                        <dd><a href="">超链接</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">解决方案</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;">列表一</a></dd>
+                        <dd><a href="javascript:;">列表二</a></dd>
+                        <dd><a href="">超链接</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item"><a href="">云市场</a></li>
+                <li class="layui-nav-item"><a href="">发布商品</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="layui-body" >
+        <!-- 内容主体区域 -->
+        <div style="padding: 15px;">
+            <table id="orderInfo" lay-filter="test"></table>
+        </div>
+    </div>
+
+    <div class="layui-footer">
+        <!-- 底部固定区域 -->
+        © layui.com - 底部固定区域
+    </div>
+</div>
+<script th:src="@{/layui/layui.js}"></script>
+
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-xs" lay-event="detial">订单状态</a>
+    <a class="layui-btn layui-btn-xs" lay-event="edit">修改地址</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除订单</a>
+</script>
+
+<script>
+    //JavaScript代码区域
+    layui.use(['element','form','layer','table'], function(){
+        const element = layui.element;
+        const form = layui.form;
+        const layer = layui.layer;
+        const table = layui.table;
+        const $ = layui.$;
+        form.render();
+
+        const tableIns = table.render({
+            elem: '#orderInfo'
+            ,url: 'BuyOrderInfo' //数据接口
+            ,cols: [[ //表头
+                {field: 'o_Id', title: '订单编号',  sort: true, fixed: 'left', width: 200}
+                ,{field: 'o_Seller', title: '卖家ID', width: 150}
+                ,{field: 'p_Title', title: '商品标题', }
+                ,{field: 'o_Baddress', title: '收货地址'}
+                ,{fixed: 'right', title: '操作',width:320, align:'center', toolbar: '#barDemo'}
+            ]]
+        });
+
+        table.on('tool(test)', function (obj){
+            const data = obj.data;
+            const layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+            const tr = obj.tr; //获得当前行 tr 的 DOM 对象（如果有的话）
+            const oId = data.o_Id;
+            if(layEvent == 'edit'){ //修改收货地址
+                layer.open({
+                    type: 2,
+                    area: ['454px','394px'],
+                    resize: false,
+                    content:'OrderAddressUpdate',
+                    success: function (layero, index){ //传值
+                        const body = layer.getChildFrame('body', index);
+                        body.find('#o_Id').val(data.o_Id);
+                        body.find('#p_Title').val(data.p_Title);
+                        body.find('#o_Seller').val(data.o_Seller);
+                    }
+                });
+            }else if(layEvent == 'del'){ // 删除订单
+                console.log(data);
+                layer.confirm('确定要删除吗？', function (){
+                   $.ajax({
+                       url: 'deleteOrder',
+                       type: 'POST',
+                       contentType: "application/json;charset=utf-8",
+                       data: JSON.stringify({"o_Id":oId}),
+                       success: function (res){
+                           if(res.code === 200){
+                               layer.msg(res.msg);
+                           }else if(res.code === 500){
+                               layer.msg(res.msg);
+                           }
+                       },
+                       error: function (res){
+                           layer.msg(res.msg);
+                       }
+                   });
+                });
+            }else if(layEvent == 'detial'){
+                layer.open({
+                    type: 2,
+                    area: ['300px','226px'],
+                    resize: false,
+                    content:'OrderStatusInit',
+                    success: function (layero, index){
+                        const Status = data.o_Status;
+                        const oId = data.o_Id;
+                        const body = layer.getChildFrame('body', index);
+                        body.find('#o_Id').val(oId);
+                        if(Status == 0){
+                            body.find('#o_Status').val("未发货");
+                        }else if(Status == 2){
+                            body.find('#o_Status').val("未收货");
+                        }else if(Status == 3){
+                            body.find('#o_Status').val("已收货");
+                        }else if(Status == 1){
+                            body.find('#o_Status').val("已发货");
+                        }
+                    }
+                });
+            }
+        });
+
+    });
+
+
+</script>
+</body>
+</html>
