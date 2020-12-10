@@ -13,7 +13,7 @@ public interface UserService {
     void updateUser(User u);
     String selectPasswordById(String u_Account);
     void updatePassword(Password p);
-    List<Address> selectAddressAll(String a_Account);
+    Address selectAddressAll(String a_Account);
     void insertOne(User u);
     void updatePwd(User u);
 }

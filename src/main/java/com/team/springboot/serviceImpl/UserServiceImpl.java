@@ -36,7 +36,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<Address> selectAddressAll(String a_Account) {
+    public Address selectAddressAll(String a_Account) {
         return usermapper.selectAddressAll(a_Account);
     }
 

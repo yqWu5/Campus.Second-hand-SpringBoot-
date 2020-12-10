@@ -27,7 +27,7 @@ public interface userMapper {
     String selectPasswordById(String u_Account);
 
     @Select("select * from address where a_Account = #{a_Account}") // 通过Account查询所有的收货地址 -wyq
-    List<Address> selectAddressAll(String a_Account);
+    Address selectAddressAll(String a_Account);
 
     @Insert("Insert into user values(#{u_Account}, #{u_Name}, #{u_Password}, #{u_Sex}, #{u_Email}, #{u_Phone})")
     void insertOne(User u);

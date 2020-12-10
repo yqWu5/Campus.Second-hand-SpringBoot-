@@ -14,13 +14,11 @@
         <ul class="layui-nav layui-layout-left">
             <li class="layui-nav-item"><a href="">控制台</a></li>
             <li class="layui-nav-item"><a href="">商品管理</a></li>
-            <li class="layui-nav-item"><a href="">用户</a></li>
             <li class="layui-nav-item">
-                <a href="javascript:;">其它系统</a>
+                <a href="javascript:;">订单管理</a>
                 <dl class="layui-nav-child">
-                    <dd><a href="">邮件管理</a></dd>
-                    <dd><a href="">消息管理</a></dd>
-                    <dd><a href="">授权管理</a></dd>
+                    <dd><a th:href="@{/admin/BuyOrderInit}">买入-订单</a></dd>
+                    <dd><a th:href="@{/admin/SellOrderInit}">出售-订单</a></dd>
                 </dl>
             </li>
         </ul>
@@ -132,7 +130,7 @@
                     <div class="layui-inline">
                         <label class="layui-form-label">收货地址1:</label>
                         <div class="layui-input-inline">
-                            <input type="text" th:value="${addressList[0].getA_Address()}" name="a_Address1" autocomplete="off" class="layui-input" style="width: 800px;">
+                            <input type="text" th:value="${address.getA_Address1()}" name="a_Address1" autocomplete="off" class="layui-input" style="width: 800px;">
                         </div>
                     </div>
                 </div>
@@ -141,7 +139,7 @@
                     <div class="layui-inline">
                         <label class="layui-form-label">收货地址2:</label>
                         <div class="layui-input-inline">
-                            <input type="text" th:value="${addressList[1].getA_Address()}"  name="a_Address2" autocomplete="off" class="layui-input" style="width: 800px;">
+                            <input type="text" th:value="${address.getA_Address2()}"  name="a_Address2" autocomplete="off" class="layui-input" style="width: 800px;">
                         </div>
                     </div>
                 </div>
@@ -150,7 +148,7 @@
                     <div class="layui-inline">
                         <label class="layui-form-label">收货地址3:</label>
                         <div class="layui-input-inline">
-                            <input type="text" th:value="${addressList[2].getA_Address()}" name="a_Address3" autocomplete="off" class="layui-input" style="width: 800px;">
+                            <input type="text" th:value="${address.getA_Address3()}" name="a_Address3" autocomplete="off" class="layui-input" style="width: 800px;">
                         </div>
                     </div>
                 </div>
@@ -159,7 +157,7 @@
                     <div class="layui-inline">
                         <label class="layui-form-label">收货地址4:</label>
                         <div class="layui-input-inline">
-                            <input type="text" th:value="${addressList[3].getA_Address()}" name="a_Address4" autocomplete="off" class="layui-input" style="width: 800px;">
+                            <input type="text" th:value="${address.getA_Address4()}" name="a_Address4" autocomplete="off" class="layui-input" style="width: 800px;">
                         </div>
                     </div>
                 </div>

@@ -28,10 +28,12 @@ public class UserController {
     public String showUserInfo(Model m, HttpSession session) {
         String account = (String) session.getAttribute("u_Account");
         User user = userService.selectUserById(account);
-        List<Address> list = userService.selectAddressAll(account);
+        Address address = (Address) userService.selectAddressAll(account);
+
+        System.out.println(account);
 
         m.addAttribute("user", user);
-        m.addAttribute("addressList",list);
+        m.addAttribute("address",address);
         return "admin/userInfo";
     }
 
