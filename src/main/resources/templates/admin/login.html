@@ -9,8 +9,8 @@
 <body>
 <div class="login-main">
     <header class="layui-elip">登录</header>
-    <div class="layui-input-inline" style="text-align: center">
-    <span th:text="${session.msg}" style="color: #ff0000"></span>
+    <div class="layui-input-inline"style="text-align: center">
+    <p th:text="${session.msg}" style="color: #ff0000"></p>
     </div>
     <form class="layui-form" th:action="@{user/login}" method="post">
         <div class="layui-input-inline">

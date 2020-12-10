@@ -15,7 +15,7 @@ public class AddressServiceImpl implements AddressService {
     AddressMapper addressMapper;
 
     @Override
-    public List<Address> selectAddressAll(String a_Account) {
+    public Address selectAddressAll(String a_Account) {
         return addressMapper.selectAddressAll(a_Account);
     }
 
@@ -25,7 +25,13 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public void insertAddressOne(String a_Account, String a_Address) {
-        addressMapper.insertAddressOne(a_Account,a_Address);
+    public void insertAddressOne(String a_Account, String a_Address1, String a_Address2, String a_Address3, String a_Address4) {
+        addressMapper.insertAddressOne(a_Account, a_Address1, a_Address2, a_Address3, a_Address4);
+    }
+
+
+    @Override
+    public void updateAddressByAccount(Address a) {
+        addressMapper.updateAddressByAccount(a);
     }
 }

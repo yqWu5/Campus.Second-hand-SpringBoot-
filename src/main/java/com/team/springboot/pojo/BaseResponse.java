@@ -5,7 +5,17 @@ package com.team.springboot.pojo;
 public class BaseResponse<T> {
     private int code;
     private String msg;
+    private int count;
     private T data;
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+
 
     public BaseResponse(){
 

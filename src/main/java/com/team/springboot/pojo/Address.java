@@ -1,7 +1,6 @@
 package com.team.springboot.pojo;
 
 public class Address {
-    private String a_Address;
     private String a_Account;
     private String a_Address1;
     private String a_Address2;
@@ -45,13 +44,6 @@ public class Address {
         this.a_Address4 = a_Address4;
     }
 
-    public String getA_Address() {
-        return a_Address;
-    }
-
-    public void setA_Address(String a_Address) {
-        this.a_Address = a_Address;
-    }
 
     public String getA_Account() {
         return a_Account;

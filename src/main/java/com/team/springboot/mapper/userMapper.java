@@ -1,13 +1,8 @@
 package com.team.springboot.mapper;
 
-import com.team.springboot.pojo.Address;
-import com.team.springboot.pojo.Password;
-import com.team.springboot.pojo.User;
+import com.team.springboot.pojo.*;
 
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -27,7 +22,7 @@ public interface userMapper {
     String selectPasswordById(String u_Account);
 
     @Select("select * from address where a_Account = #{a_Account}") // 通过Account查询所有的收货地址 -wyq
-    List<Address> selectAddressAll(String a_Account);
+    Address selectAddressAll(String a_Account);
 
     @Insert("Insert into user values(#{u_Account}, #{u_Name}, #{u_Password}, #{u_Sex}, #{u_Email}, #{u_Phone})")
     void insertOne(User u);
@@ -35,4 +30,18 @@ public interface userMapper {
     @Update("update user set u_Password = #{u_Password} where u_Account = #{u_Account}")
     void updatePwd(User u);
 
+
+    //查询用户数量
+    @Select("select count(*) from user")
+    int selectCount();
+    @Select("select count(*) from user where u_Account = #{0}")
+    int selectCountByAccount(String p_Account);
+    //分页
+    @Select("select * from user limit #{0}, #{1}")
+    List<User> selectUserAll(int page, int limit);
+    @Delete("Delete from user where u_Account = #{0}")
+    void deleteUser(String u_Account);
+    //查询某个用户
+    @Select("select * from user where u_Account = #{u_Account}")
+    List<User>selectUserByIdrtlist(String u_Account);
 }

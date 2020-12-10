@@ -36,7 +36,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<Address> selectAddressAll(String a_Account) {
+    public Address selectAddressAll(String a_Account) {
         return usermapper.selectAddressAll(a_Account);
     }
 
@@ -48,5 +48,31 @@ public class UserServiceImpl implements UserService {
     @Override
     public void updatePwd(User u) {
         usermapper.updatePwd(u);
+    }
+
+
+    @Override
+    public int selectCount() {
+        return usermapper.selectCount();
+    }
+
+    @Override
+    public int selectCountByAccount(String p_Account) {
+        return usermapper.selectCountByAccount(p_Account);
+    }
+
+    @Override
+    public List<User> selectUserAll(int page, int limit) {
+        return usermapper.selectUserAll((page-1)*limit,limit);
+    }
+
+    @Override
+    public void deleteUser(String u_Account) {
+        usermapper.deleteUser(u_Account);
+    }
+
+    @Override
+    public List<User> selectUserByIdrtlist(String u_Account) {
+        return usermapper.selectUserByIdrtlist(u_Account);
     }
 }
