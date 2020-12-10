@@ -76,10 +76,13 @@
     </div>
 </div>
 <script th:src="@{/layui/layui.js}"></script>
+
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-xs" lay-event="edit">修改收货地址</a>
+    <a class="layui-btn layui-btn-xs" lay-event="detial">订单状态</a>
+    <a class="layui-btn layui-btn-xs" lay-event="edit">修改地址</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除订单</a>
 </script>
+
 <script>
     //JavaScript代码区域
     layui.use(['element','form','layer','table'], function(){
@@ -94,12 +97,11 @@
             elem: '#orderInfo'
             ,url: 'BuyOrderInfo' //数据接口
             ,cols: [[ //表头
-                {field: 'o_Id', title: '订单编号',  sort: true, fixed: 'left'}
-                ,{field: 'o_Seller', title: '卖家ID'}
-                ,{field: 'p_Title', title: '商品标题'}
-                ,{field: 'o_Baddress', title: '收货地址', }
-                ,{field: 'o_Status', title: '订单状态'}
-                ,{fixed: 'right', title: '操作',width:250, align:'center', toolbar: '#barDemo'}
+                {field: 'o_Id', title: '订单编号',  sort: true, fixed: 'left', width: 200}
+                ,{field: 'o_Seller', title: '卖家ID', width: 150}
+                ,{field: 'p_Title', title: '商品标题', }
+                ,{field: 'o_Baddress', title: '收货地址'}
+                ,{fixed: 'right', title: '操作',width:320, align:'center', toolbar: '#barDemo'}
             ]]
         });
 
@@ -122,6 +124,7 @@
                     }
                 });
             }else if(layEvent == 'del'){ // 删除订单
+                console.log(data);
                 layer.confirm('确定要删除吗？', function (){
                    $.ajax({
                        url: 'deleteOrder',
@@ -139,6 +142,28 @@
                            layer.msg(res.msg);
                        }
                    });
+                });
+            }else if(layEvent == 'detial'){
+                layer.open({
+                    type: 2,
+                    area: ['300px','226px'],
+                    resize: false,
+                    content:'OrderStatusInit',
+                    success: function (layero, index){
+                        const Status = data.o_Status;
+                        const oId = data.o_Id;
+                        const body = layer.getChildFrame('body', index);
+                        body.find('#o_Id').val(oId);
+                        if(Status == 0){
+                            body.find('#o_Status').val("未发货");
+                        }else if(Status == 2){
+                            body.find('#o_Status').val("未收货");
+                        }else if(Status == 3){
+                            body.find('#o_Status').val("已收货");
+                        }else if(Status == 1){
+                            body.find('#o_Status').val("已发货");
+                        }
+                    }
                 });
             }
         });

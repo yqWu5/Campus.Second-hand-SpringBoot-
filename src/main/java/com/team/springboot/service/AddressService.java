@@ -9,6 +9,6 @@ public interface AddressService {
 
     List<Address> selectAddressAll(String a_Account);
     void deleteAddressAll(String a_Account);
-    void insertAddressOne(String a_Account, String a_Address);
+    void insertAddressOne(Address a);
     void updateAddressByAccount(Address a);
 }

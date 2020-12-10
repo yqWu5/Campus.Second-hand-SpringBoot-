@@ -6,6 +6,7 @@ import com.team.springboot.pojo.BaseResponse;
 import com.team.springboot.pojo.Password;
 import com.team.springboot.pojo.User;
 
+import com.team.springboot.service.AddressService;
 import com.team.springboot.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,6 +24,8 @@ public class UserController {
 
     @Autowired
     UserService userService;
+    @Autowired
+    AddressService addressService;
     //后台初始化
     @RequestMapping("/userInfo")
     public String showUserInfo(Model m, HttpSession session) {
@@ -30,7 +33,15 @@ public class UserController {
         User user = userService.selectUserById(account);
         Address address = (Address) userService.selectAddressAll(account);
 
-        System.out.println(account);
+        if(address == null){  // 若登陆账号在address表中无收获地址，则自动新增
+            address = new Address();
+            address.setA_Account(account);
+            address.setA_Address1("无");
+            address.setA_Address2("无");
+            address.setA_Address3("无");
+            address.setA_Address4("无");
+            addressService.insertAddressOne(address);
+        }
 
         m.addAttribute("user", user);
         m.addAttribute("address",address);

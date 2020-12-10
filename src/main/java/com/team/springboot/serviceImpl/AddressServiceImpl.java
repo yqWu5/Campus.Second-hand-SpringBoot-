@@ -25,8 +25,8 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public void insertAddressOne(String a_Account, String a_Address) {
-        addressMapper.insertAddressOne(a_Account,a_Address);
+    public void insertAddressOne(Address a) {
+        addressMapper.insertAddressOne(a);
     }
 
     @Override

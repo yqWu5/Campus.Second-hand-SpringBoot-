@@ -1,11 +1,13 @@
 package com.team.springboot.controller;
 
+import com.fasterxml.jackson.databind.ser.Serializers;
 import com.team.springboot.pojo.Address;
 import com.team.springboot.pojo.BaseResponse;
 import com.team.springboot.pojo.Order;
 import com.team.springboot.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,6 +22,14 @@ import java.util.List;
 public class OrderController {
     @Autowired
     OrderService orderService;
+
+    //订单状态修改转跳
+    @RequestMapping("/OrderStatusInit")
+    public String OrderStatusInit(){
+
+        return "admin/OrderStatusUpdate";
+    }
+
     //订单收货地址修改页面转跳
     @RequestMapping("/OrderAddressUpdate")
     public String OrderAddressUpdate(){
@@ -34,11 +44,11 @@ public class OrderController {
     //买入-订单表格初始化
     @RequestMapping("/BuyOrderInfo")
     @ResponseBody
-    public BaseResponse BuyOrderInfo(HttpSession session){
+    public BaseResponse BuyOrderInfo(HttpSession session, Model m){
         BaseResponse<List<Order>> baseResponse = new BaseResponse<>();
         String account = (String)session.getAttribute("u_Account");
         List<Order> list = orderService.selectOrderAndProductBuy(account);
-
+        session.setAttribute("StatusCode1","Buy");
         baseResponse.setCode(0);
         baseResponse.setData(list);
 
@@ -57,7 +67,7 @@ public class OrderController {
         BaseResponse<List<Order>> baseResponse = new BaseResponse<>();
         String account = (String)session.getAttribute("u_Account");
         List<Order> list = orderService.selectOrderAndProductSell(account);
-
+        session.setAttribute("StatusCode2","Sell");
         baseResponse.setCode(0);
         baseResponse.setData(list);
 
@@ -114,9 +124,36 @@ public class OrderController {
             return baseResponse;
         }
 
+        if(o.getO_Status().equals(0)){// 卖家未发货，不能删除
+            baseResponse.setCode(500);
+            baseResponse.setMsg("卖家尚未发货，交易没有完成，不能删除该订单！");
+            return baseResponse;
+        }
+
         orderService.deleteOrderById(o);
         baseResponse.setCode(200);
         baseResponse.setMsg("删除成功!");
+        return baseResponse;
+    }
+    //
+    @RequestMapping("/orderStatusUpdate")
+    @ResponseBody
+    public BaseResponse orderStatusUpdate(@RequestBody Order o){
+        BaseResponse<Integer> baseResponse = new BaseResponse<>();
+
+        if(o.getO_Status().equals("未发货")){
+            baseResponse.setCode(500);
+            baseResponse.setMsg("卖家尚未发货！收货失败");
+            return baseResponse;
+        }else if(o.getO_Status().equals("已收货")){
+            baseResponse.setCode(500);
+            baseResponse.setMsg("订单已完成交易,不需重复收货！");
+            return baseResponse;
+        }
+
+        //卖家已经发货，买家可以收货
+        baseResponse.setCode(200);
+        baseResponse.setMsg("请求成功");
         return baseResponse;
     }
 }
