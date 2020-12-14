@@ -96,6 +96,8 @@
         const tableIns = table.render({
             elem: '#orderInfo'
             ,url: 'BuyOrderInfo' //数据接口
+            ,page: true
+            ,limit: 10
             ,cols: [[ //表头
                 {field: 'o_Id', title: '订单编号',  sort: true, fixed: 'left', width: 200}
                 ,{field: 'o_Seller', title: '卖家ID', width: 150}
@@ -130,7 +132,7 @@
                        url: 'deleteOrder',
                        type: 'POST',
                        contentType: "application/json;charset=utf-8",
-                       data: JSON.stringify({"o_Id":oId}),
+                       data: JSON.stringify(data),
                        success: function (res){
                            if(res.code === 200){
                                layer.msg(res.msg);
@@ -154,10 +156,10 @@
                         const oId = data.o_Id;
                         const body = layer.getChildFrame('body', index);
                         body.find('#o_Id').val(oId);
+                        body.find('#o_Buyer').val(data.o_Buyer);
+                        body.find('#o_Seller').val(data.o_Seller);
                         if(Status == 0){
                             body.find('#o_Status').val("未发货");
-                        }else if(Status == 2){
-                            body.find('#o_Status').val("未收货");
                         }else if(Status == 3){
                             body.find('#o_Status').val("已收货");
                         }else if(Status == 1){

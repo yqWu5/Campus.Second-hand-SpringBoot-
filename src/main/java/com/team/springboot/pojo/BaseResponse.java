@@ -6,7 +6,7 @@ public class BaseResponse<T> {
     private int code;
     private String msg;
     private T data;
-
+    private int count;
     public BaseResponse(){
 
     }
@@ -33,5 +33,13 @@ public class BaseResponse<T> {
 
     public void setData(T data) {
         this.data = data;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
     }
 }
