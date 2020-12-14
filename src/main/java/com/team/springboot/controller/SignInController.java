@@ -30,12 +30,14 @@ public class SignInController {
             return "redirect:/login";
         }
 
-        if(userService.selectUserById(account)==null){
+        if(userService.selectUserById(account) == null){
             session.setAttribute("msg","用户名或密码错误");
             return "redirect:/login";
         }
+
         if(userService.selectUserById(account).getU_Password().equals(password)){
             session.setAttribute("u_Account",account);
+            System.out.println("ok");
             return "redirect:/admin/userInfo";
         }
         else {

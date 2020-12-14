@@ -34,9 +34,10 @@ public class UserController {
         User user = userService.selectUserById(account);
         Address addr= userService.selectAddressAll(account);
         m.addAttribute("user", user);
-        if(addr==null) {
+
+        if(addr == null) {
             addressService.insertAddressOne(account,"无","无","无","无");
-            addr= userService.selectAddressAll(account);
+            addr = userService.selectAddressAll(account);
         }
         m.addAttribute("addressList",addr);
         return "admin/userInfo";
