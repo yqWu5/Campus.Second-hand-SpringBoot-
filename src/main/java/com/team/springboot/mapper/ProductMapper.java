@@ -30,4 +30,5 @@ public interface ProductMapper {
     //更新产品信息
     @Update("update product set p_Name = #{p_Name},p_Title = #{p_Title},p_Des = #{p_Des},p_Price = #{p_Price} ,p_Date = #{p_Date} where p_Id = #{p_Id}")
     void updateProduct(Product product);
+
 }

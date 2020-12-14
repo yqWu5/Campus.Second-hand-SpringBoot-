@@ -12,7 +12,7 @@ public class Product {
     private Date p_Date;
     private Double p_Price;
     private String p_Des;
-
+    private String p_href;
     public Product(int p_Id, String p_Des, Date p_Date) {
         this.p_Id = p_Id;
         this.p_Des = p_Des;
@@ -30,6 +30,14 @@ public class Product {
     }
 
     public Product() {
+    }
+
+    public String getP_href() {
+        return p_href;
+    }
+
+    public void setP_href(String p_href) {
+        this.p_href = p_href;
     }
 
     public Product(int p_Id, String p_Account, String p_Name, String p_Title, Date p_Date, Double p_Price, String p_Des) {

@@ -4,8 +4,6 @@ package com.team.springboot.mapper;
 import com.team.springboot.pojo.Address;
 import org.apache.ibatis.annotations.*;
 
-import java.util.List;
-
 @Mapper
 public interface AddressMapper {
 

@@ -1,14 +1,9 @@
 package com.team.springboot.controller;
 
 import com.mysql.jdbc.StringUtils;
-import com.team.springboot.mapper.ProductMapper;
-import com.team.springboot.pojo.BaseResponse;
-import com.team.springboot.pojo.Product;
-import com.team.springboot.pojo.ProductCategory;
-import com.team.springboot.pojo.User;
+import com.team.springboot.pojo.*;
 import com.team.springboot.service.ProductCategoryService;
 import com.team.springboot.service.ProductService;
-import com.team.springboot.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,11 +18,13 @@ import java.util.List;
 public class ProductController {
     @Autowired
     ProductService productService;
+    
     @Autowired
     ProductCategoryService productCategoryService;
-
+    
     @RequestMapping("/init")
-    public String showproductInfo() {
+    public String showproductInfo(HttpSession session, Model m) {
+        String account = (String) session.getAttribute("u_Account");
         return "admin/productInfo";
     }
 
@@ -50,6 +47,11 @@ public class ProductController {
                         StringUtils.isNullOrEmpty(limit)?10:Integer.valueOf(limit));
                 baseResponse.setCount(productService.selectCountByaccount((String) session.getAttribute("u_Account")));
             }
+
+        for(ProductCategory p:product){
+            System.out.println(p.getP_href());
+        }
+
         //判断product是否为空
         if(product!=null) {
             baseResponse.setData(product);
