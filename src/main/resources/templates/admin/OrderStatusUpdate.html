@@ -20,6 +20,7 @@
     <div class="layui-form-item" th:if="${session.StatusCode1}eq 'Buy'">
         <label class="layui-form-label">订单操作：</label>
         <div class="layui-form-inline">
+            <input type="text" id="o_Buyer" name="o_Buyer" style="display: none;">  <!-- 隐藏o_Id -->
             <button type="button" lay-submit lay-filter="OrderStatusUpdate" class="layui-btn layui-btn-sm">确认收货</button>
         </div>
     </div>
@@ -27,6 +28,7 @@
     <div class="layui-form-item" th:if="${session.StatusCode2}eq 'Sell'">
         <label class="layui-form-label">订单操作：</label>
         <div class="layui-form-inline">
+            <input type="text" id="o_Seller" name="o_Seller" style="display: none;">  <!-- 隐藏o_Id -->
             <button type="button" lay-submit lay-filter="OrderStatusUpdate" class="layui-btn layui-btn-sm">确认发货</button>
         </div>
     </div>

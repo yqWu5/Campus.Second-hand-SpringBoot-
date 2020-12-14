@@ -1,6 +1,5 @@
 package com.team.springboot.controller;
 
-import com.fasterxml.jackson.databind.ser.Serializers;
 import com.team.springboot.pojo.Address;
 import com.team.springboot.pojo.BaseResponse;
 import com.team.springboot.pojo.Order;
@@ -44,14 +43,17 @@ public class OrderController {
     //买入-订单表格初始化
     @RequestMapping("/BuyOrderInfo")
     @ResponseBody
-    public BaseResponse BuyOrderInfo(HttpSession session, Model m){
+    public BaseResponse BuyOrderInfo(HttpSession session, Model m, int page, int limit){
         BaseResponse<List<Order>> baseResponse = new BaseResponse<>();
         String account = (String)session.getAttribute("u_Account");
-        List<Order> list = orderService.selectOrderAndProductBuy(account);
+        int count = orderService.orderBuyerCount(account);
+
+        List<Order> list = orderService.selectOrderAndProductBuy(account, (page - 1) * limit, limit);
         session.setAttribute("StatusCode1","Buy");
+        session.setAttribute("StatusCode2","Buy");
         baseResponse.setCode(0);
         baseResponse.setData(list);
-
+        baseResponse.setCount(count);
         return baseResponse;
     }
 
@@ -63,18 +65,21 @@ public class OrderController {
     //出售-订单表格初始化
     @RequestMapping("/SellOrderInfo")
     @ResponseBody
-    public BaseResponse SellOrderInfo(HttpSession session){
+    public BaseResponse SellOrderInfo(HttpSession session, int page, int limit){
         BaseResponse<List<Order>> baseResponse = new BaseResponse<>();
         String account = (String)session.getAttribute("u_Account");
-        List<Order> list = orderService.selectOrderAndProductSell(account);
+        int count = orderService.orderSellerCount(account);
+        List<Order> list = orderService.selectOrderAndProductSell(account, (page - 1) * limit, limit);
+
         session.setAttribute("StatusCode2","Sell");
+        session.setAttribute("StatusCode1","Sell");
         baseResponse.setCode(0);
         baseResponse.setData(list);
-
+        baseResponse.setCount(count);
         return baseResponse;
     }
 
-    //下拉框动态赋值
+    //收货地址下拉框动态赋值
     @RequestMapping("/selectValue")
     @ResponseBody
     public BaseResponse selectAddressValue(HttpSession session){
@@ -112,11 +117,10 @@ public class OrderController {
         return baseResponse;
     }
 
-    @RequestMapping("deleteOrder")
+    //删除订单
+    @RequestMapping("/deleteOrder")
     @ResponseBody BaseResponse deleteOrder(@RequestBody Order o){
         BaseResponse<Integer> baseResponse = new BaseResponse<>();
-
-        System.out.println(o.toString());
 
         if(o == null){
             baseResponse.setCode(500);
@@ -124,36 +128,68 @@ public class OrderController {
             return baseResponse;
         }
 
-        if(o.getO_Status().equals(0)){// 卖家未发货，不能删除
+        if(o.getO_Status().equals("0")){// 卖家未发货，不能删除
             baseResponse.setCode(500);
-            baseResponse.setMsg("卖家尚未发货，交易没有完成，不能删除该订单！");
+            baseResponse.setMsg("删除失败！尚未发货");
+            return baseResponse;
+        }else if(o.getO_Status().equals("1")){
+            baseResponse.setCode(500);
+            baseResponse.setMsg("删除失败！尚未收货");
             return baseResponse;
         }
+
+
 
         orderService.deleteOrderById(o);
         baseResponse.setCode(200);
         baseResponse.setMsg("删除成功!");
         return baseResponse;
     }
-    //
+    //订单状态更改
     @RequestMapping("/orderStatusUpdate")
     @ResponseBody
     public BaseResponse orderStatusUpdate(@RequestBody Order o){
         BaseResponse<Integer> baseResponse = new BaseResponse<>();
 
-        if(o.getO_Status().equals("未发货")){
-            baseResponse.setCode(500);
-            baseResponse.setMsg("卖家尚未发货！收货失败");
-            return baseResponse;
-        }else if(o.getO_Status().equals("已收货")){
-            baseResponse.setCode(500);
-            baseResponse.setMsg("订单已完成交易,不需重复收货！");
-            return baseResponse;
+        if(o.getO_Buyer() != null && o.getO_Seller() == null && !o.getO_Buyer().equals("")){ // 是买家操作订单状态
+            if(o.getO_Status().equals("未发货")){
+                baseResponse.setCode(500);
+                baseResponse.setMsg("卖家尚未发货！收货失败");
+                return baseResponse;
+            }else if(o.getO_Status().equals("已发货")){
+                baseResponse.setCode(200);
+                baseResponse.setMsg("收货成功");
+                o.setO_Status("3"); // 修改为收货状态码 3
+                orderService.StatusUpdate(o);
+                return baseResponse;
+            }else if(o.getO_Status().equals("已收货")){
+                baseResponse.setCode(500);
+                baseResponse.setMsg("订单已完成交易,不需重复收货！");
+                return baseResponse;
+            }
         }
 
-        //卖家已经发货，买家可以收货
-        baseResponse.setCode(200);
-        baseResponse.setMsg("请求成功");
+
+        if(o.getO_Seller() != null && o.getO_Buyer() == null && !o.getO_Seller().equals("")){  // 是卖家操作订单
+            if(o.getO_Status().equals("已发货")){
+                baseResponse.setCode(500);
+                baseResponse.setMsg("操作失败！请不要重复发货");
+                return baseResponse;
+            }else if(o.getO_Status().equals("未发货")){
+                baseResponse.setCode(200);
+                baseResponse.setMsg("发货成功");
+                o.setO_Status("1");
+                orderService.StatusUpdate(o);
+                return baseResponse;
+            }else if(o.getO_Status().equals("已收货")){
+                baseResponse.setCode(500);
+                baseResponse.setMsg("操作失败！订单已完成交易");
+                return baseResponse;
+            }
+        }
+
+        baseResponse.setCode(500);
+        baseResponse.setMsg("请求失败");
         return baseResponse;
     }
 }

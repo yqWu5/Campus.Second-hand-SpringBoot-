@@ -15,13 +15,13 @@ public class OrderServiceImpl implements OrderService {
     OrderMapper orderMapper;
 
     @Override
-    public List<Order> selectOrderAndProductBuy(String account) {
-        return orderMapper.selectOrderAndProductBuy(account);
+    public List<Order> selectOrderAndProductBuy(String Buy_Account, int page, int limit) {
+        return orderMapper.selectOrderAndProductBuy(Buy_Account, page, limit);
     }
 
     @Override
-    public List<Order> selectOrderAndProductSell(String account) {
-        return orderMapper.selectOrderAndProductSell(account);
+    public List<Order> selectOrderAndProductSell(String account, int page, int limit) {
+        return orderMapper.selectOrderAndProductSell(account, page, limit);
     }
 
     @Override
@@ -39,5 +39,18 @@ public class OrderServiceImpl implements OrderService {
         orderMapper.deleteOrderById(o);
     }
 
+    @Override
+    public int orderBuyerCount(String o_Buyer) {
+        return orderMapper.orderBuyerCount(o_Buyer);
+    }
 
+    @Override
+    public int orderSellerCount(String o_Seller){
+        return orderMapper.orderSellerCount(o_Seller);
+    }
+
+    @Override
+    public void StatusUpdate(Order o) {
+        orderMapper.StatusUpdate(o);
+    }
 }

@@ -9,12 +9,12 @@ public class Order {
     private String o_Baddress;
     private String o_Saddress;
     private String p_Title;
-    private String O_Status;
+    private String o_Status;
 
-    @Override
-    public String toString() {
-        return " o_Id:" + this.getO_Id() + " o_ItemId:" + this.getO_ItemId() + " p_Title:" + this.getP_Title();
-    }
+//    @Override
+//    public String toString() {
+//        return " o_Id:" + this.getO_Id() + " o_ItemId:" + this.getO_ItemId() + " p_Title:" + this.getP_Title();
+//    }
 
 
     public Order() {
@@ -22,11 +22,11 @@ public class Order {
     }
 
     public String getO_Status() {
-        return O_Status;
+        return o_Status;
     }
 
     public void setO_Status(String o_Status) {
-        O_Status = o_Status;
+        this.o_Status = o_Status;
     }
 
     public String getO_Baddress() {

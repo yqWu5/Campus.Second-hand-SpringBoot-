@@ -66,7 +66,7 @@
     <div class="layui-body" >
         <!-- 内容主体区域 -->
         <div style="padding: 15px;">
-            <table id="orderInfo" lay-filter="test"></table>
+            <table id="orderBuy" lay-filter="test"></table>
         </div>
     </div>
 
@@ -77,8 +77,7 @@
 </div>
 <script th:src="@{/layui/layui.js}"></script>
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-xs" lay-event="detail">查看</a>
-    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-xs" lay-event="detail">订单状态</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
 <script>
@@ -91,17 +90,70 @@
         const $ = layui.$;
         form.render();
 
-        const tableIns = table.render({
-            elem: '#orderInfo'
+        table.render({
+            elem: '#orderBuy'
             ,url: 'SellOrderInfo' //数据接口
+            ,page: true
+            ,limit: 10
             ,cols: [[ //表头
-                {field: 'o_Id', title: '订单编号',  sort: true, fixed: 'left'}
-                ,{field: 'o_Seller', title: '买家ID'}
+                {field: 'o_Id', title: '订单编号',  sort: true, fixed: 'left', width: 200}
+                ,{field: 'o_Buyer', title: '买家ID', width: 150}
                 ,{field: 'p_Title', title: '商品标题'}
                 ,{field: 'o_Baddress', title: '收货地址', }
-                ,{field: 'o_Status', title: '订单状态'}
-                ,{fixed: 'right', title: '操作',width:250, align:'center', toolbar: '#barDemo'}
+                ,{fixed: 'right', title: '操作',width:320, align:'center', toolbar: '#barDemo'}
             ]]
+        });
+
+        table.on('tool(test)', function (obj){
+            const data = obj.data;
+            const layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+            const tr = obj.tr; //获得当前行 tr 的 DOM 对象（如果有的话）
+            const oId = data.o_Id;
+
+            if(layEvent == 'detail'){ // 删除
+                layer.open({
+                    type: 2,
+                    area: ['300px','226px'],
+                    resize: false,
+                    content:'OrderStatusInit',
+                    success: function (layero, index){
+                        const Status = data.o_Status;
+                        const oId = data.o_Id;
+                        const body = layer.getChildFrame('body', index);
+                        body.find('#o_Id').val(data.o_Id);
+                        body.find('#o_Buyer').val(data.o_Buyer);
+                        body.find('#o_Seller').val(data.o_Seller);
+                        if(Status == 0){
+                            body.find('#o_Status').val("未发货");
+                        }else if(Status == 3){
+                            body.find('#o_Status').val("已收货");
+                        }else if(Status == 1){
+                            body.find('#o_Status').val("已发货");
+                        }
+                    }
+                });
+            }else if(layEvent == 'del'){
+                console.log(data);
+                layer.confirm('确定要删除吗？', function (){
+                    $.ajax({
+                        url: 'deleteOrder',
+                        type: 'POST',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify(data),
+                        success: function (res){
+                            if(res.code === 200){
+                                layer.msg(res.msg);
+                            }else if(res.code === 500){
+                                layer.msg(res.msg);
+                            }
+                        },
+                        error: function (res){
+                            layer.msg(res.msg);
+                        }
+                    });
+                });
+            }
+
         });
     });
 
