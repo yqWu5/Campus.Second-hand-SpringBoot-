@@ -10,7 +10,7 @@
 <div class="login-main">
     <header class="layui-elip">登录</header>
     <div class="layui-input-inline"style="text-align: center">
-        <p th:text="${session.msg}" style="color: #ff0000"></p>
+    <p th:text="${session.msg}" style="color: #ff0000"></p>
     </div>
     <form class="layui-form" th:action="@{user/login}" method="post">
         <div class="layui-input-inline">
@@ -24,9 +24,9 @@
             </label>
         </div>
         <div class="layui-input-inline">
-            <input id="checkCode" name="checkCode" type="text"
-                   placeholder="验证码" autocomplete="off"  required="required"
-                   class="layui-input" data-parsley-required-message="请输入验证码！"/>
+        <input id="checkCode" name="checkCode" type="text"
+               placeholder="验证码" autocomplete="off"  required="required"
+               class="layui-input" data-parsley-required-message="请输入验证码！"/>
         </div>
         <div class="layui-input-inline">
             <img src="/code" alt="验证码" title="点击更换" onclick="this.src='/code?'+Math.random()"/>

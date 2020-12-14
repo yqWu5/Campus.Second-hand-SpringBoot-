@@ -12,9 +12,9 @@
         <div class="layui-logo">校园二手物品后台</div>
         <!-- 头部区域（可配合layui已有的水平导航） -->
         <ul class="layui-nav layui-layout-left">
-            <li class="layui-nav-item"><a href="">控制台</a></li>
-            <li class="layui-nav-item"><a href="">商品管理</a></li>
-            <li class="layui-nav-item"><a href="">用户</a></li>
+            <li class="layui-nav-item"><a href="/admin/userinit">用户管理</a></li>
+            <li class="layui-nav-item"><a href="/admin/init">商品管理</a></li>
+            <li class="layui-nav-item"><a href="/admin/BuyOrderInit">订单管理</a></li>
             <li class="layui-nav-item">
                 <a href="javascript:;">其它系统</a>
                 <dl class="layui-nav-child">
@@ -30,7 +30,7 @@
                     我的
                 </a>
                 <dl class="layui-nav-child">
-                    <dd><a href="">基本资料</a></dd>
+                    <dd><a href="#">基本资料</a></dd>
                     <dd><a href="">安全设置</a></dd>
                 </dl>
             </li>
@@ -69,58 +69,58 @@
         <!-- 内容主体区域 -->
         <div style="padding: 15px;">
             <div class=""><!-- 个人信息 -->
-            <form class="layui-form" >
-                <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
-                    <legend>个人信息</legend>
-                </fieldset>
-                <div class="layui-form-item">
-                    <div class="layui-inline">
-                        <label class="layui-form-label">账号:</label>
-                        <div class="layui-input-inline">
-                            <input th:value="${user.u_Account}" type="text" name="u_Account" readonly  autocomplete="off" class="layui-input">
+                <form class="layui-form" >
+                    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+                        <legend>个人信息</legend>
+                    </fieldset>
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">账号:</label>
+                            <div class="layui-input-inline">
+                                <input th:value="${user.u_Account}" type="text" name="u_Account" readonly  autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+
+                        <div class="layui-inline">
+                            <label class="layui-form-label">用户名:</label>
+                            <div class="layui-input-inline">
+                                <input th:value="${user.u_Name}" type="text" name="u_Name" required lay-verify="required" autocomplete="off" class="layui-input">
+                            </div>
                         </div>
                     </div>
 
-                    <div class="layui-inline">
-                        <label class="layui-form-label">用户名:</label>
-                        <div class="layui-input-inline">
-                            <input th:value="${user.u_Name}" type="text" name="u_Name" required lay-verify="required" autocomplete="off" class="layui-input">
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">邮箱:</label>
+                            <div class="layui-input-inline">
+                                <input th:value="${user.u_Email}" type="text" name="u_Email" required lay-verify="email" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+
+                        <div class="layui-inline">
+                            <label class="layui-form-label">电话号码:</label>
+                            <div class="layui-input-inline">
+                                <input type="text" th:value="${user.u_Phone}" name="u_Phone" required lay-verify="phone" autocomplete="off" class="layui-input">
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="layui-form-item">
-                    <div class="layui-inline">
-                        <label class="layui-form-label">邮箱:</label>
-                        <div class="layui-input-inline">
-                            <input th:value="${user.u_Email}" type="text" name="u_Email" required lay-verify="email" autocomplete="off" class="layui-input">
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">性别:</label>
+                            <div class="layui-input-inline">
+                                <input type="radio" name="u_Sex" value="nan" title="男" checked>
+                                <input type="radio" name="u_Sex" value="女" title="女">
+                            </div>
                         </div>
                     </div>
 
-                    <div class="layui-inline">
-                        <label class="layui-form-label">电话号码:</label>
-                        <div class="layui-input-inline">
-                            <input type="text" th:value="${user.u_Phone}" name="u_Phone" required lay-verify="phone" autocomplete="off" class="layui-input">
-                        </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">
+                            <button lay-submit lay-filter="userInfo" class="layui-btn layui-btn-radius">保存</button>
+                        </label>
                     </div>
-                </div>
-
-                <div class="layui-form-item">
-                    <div class="layui-inline">
-                        <label class="layui-form-label">性别:</label>
-                        <div class="layui-input-inline">
-                          <input type="radio" name="u_Sex" value="nan" title="男" checked>
-                          <input type="radio" name="u_Sex" value="女" title="女">
-                        </div>
-                    </div>
-                </div>
-
-              <div class="layui-form-item">
-                <label class="layui-form-label"> 
-                  <button lay-submit lay-filter="userInfo" class="layui-btn layui-btn-radius">保存</button>
-                </label>
-              </div>
-            </form>
+                </form>
             </div>
 
             <div class="layui-form"> <!-- 收货地址 -->
@@ -132,7 +132,7 @@
                     <div class="layui-inline">
                         <label class="layui-form-label">收货地址1:</label>
                         <div class="layui-input-inline">
-                            <input type="text" th:value="${addressList[0].getA_Address()}" name="a_Address1" autocomplete="off" class="layui-input" style="width: 800px;">
+                            <input type="text"  th:value="${addressList.getA_Address1()}" name="a_Address1" autocomplete="off" class="layui-input" style="width: 800px;">
                         </div>
                     </div>
                 </div>
@@ -141,7 +141,7 @@
                     <div class="layui-inline">
                         <label class="layui-form-label">收货地址2:</label>
                         <div class="layui-input-inline">
-                            <input type="text" th:value="${addressList[1].getA_Address()}"  name="a_Address2" autocomplete="off" class="layui-input" style="width: 800px;">
+                            <input type="text" th:value="${addressList.getA_Address2()}"  name="a_Address2" autocomplete="off" class="layui-input" style="width: 800px;">
                         </div>
                     </div>
                 </div>
@@ -150,7 +150,7 @@
                     <div class="layui-inline">
                         <label class="layui-form-label">收货地址3:</label>
                         <div class="layui-input-inline">
-                            <input type="text" th:value="${addressList[2].getA_Address()}" name="a_Address3" autocomplete="off" class="layui-input" style="width: 800px;">
+                            <input type="text" th:value="${addressList.getA_Address3()}" name="a_Address3" autocomplete="off" class="layui-input" style="width: 800px;">
                         </div>
                     </div>
                 </div>
@@ -159,7 +159,7 @@
                     <div class="layui-inline">
                         <label class="layui-form-label">收货地址4:</label>
                         <div class="layui-input-inline">
-                            <input type="text" th:value="${addressList[3].getA_Address()}" name="a_Address4" autocomplete="off" class="layui-input" style="width: 800px;">
+                            <input type="text" th:value="${addressList.getA_Address4()}" name="a_Address4"  autocomplete="off" class="layui-input" style="width: 800px;">
                         </div>
                     </div>
                 </div>
@@ -201,12 +201,12 @@
                     </div>
                 </div>
 
-              <div class="layui-form-item">
-                <label class="layui-form-label"/>
-                <label class="layui-form-label"/>
-                  <button lay-submit lay-filter="passwordUpdate" class="layui-btn layui-btn-radius">修改密码</button>
-                </label>
-              </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label"/>
+                    <label class="layui-form-label"/>
+                    <button lay-submit lay-filter="passwordUpdate" class="layui-btn layui-btn-radius">修改密码</button>
+                    </label>
+                </div>
             </form>
         </div>
     </div>

@@ -23,7 +23,13 @@ public class SignInController {
     @PostMapping("/user/login")
     public String loginin(@RequestParam("u_Account") String account,
                           @RequestParam("u_Password") String password,
+                          @RequestParam("checkCode") String checkCode,
                           HttpSession session) {
+        if(!session.getAttribute("imageCode").equals(checkCode)){
+            session.setAttribute("msg","验证码不正确");
+            return "redirect:/login";
+        }
+
         if(userService.selectUserById(account)==null){
             session.setAttribute("msg","用户名或密码错误");
             return "redirect:/login";

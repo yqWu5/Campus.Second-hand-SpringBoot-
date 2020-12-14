@@ -11,9 +11,9 @@
     <div class="layui-header">
         <div class="layui-logo">校园二手物品后台</div>
         <ul class="layui-nav layui-layout-left">
-            <li class="layui-nav-item"><a href="">控制台</a></li>
-            <li class="layui-nav-item"><a href="/admin/init">商品管理</a></li>
             <li class="layui-nav-item"><a href="#">用户管理</a></li>
+            <li class="layui-nav-item"><a href="/admin/init">商品管理</a></li>
+            <li class="layui-nav-item"><a href="/admin/BuyOrderInit">订单管理</a></li>
             <li class="layui-nav-item">
                 <a href="javascript:;">其它系统</a>
                 <dl class="layui-nav-child">
@@ -90,7 +90,6 @@
             var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
             var tr = obj.tr; //获得当前行 tr 的 DOM 对象（如果有的话）
             const $=layui.$;
-
             if(layEvent === 'detail'){ //查看
                 layer.confirm('确认查看', function(index){
                     $.ajax({
