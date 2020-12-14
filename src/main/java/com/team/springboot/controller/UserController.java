@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 
 @Controller
@@ -111,7 +112,7 @@ public class UserController {
     public BaseResponse userData (@RequestParam String page,
                                   @RequestParam String limit,
                                   HttpSession session){
-        List<User>users;
+        List<User> users;
         User u;
         BaseResponse<List<User>> baseResponse = new BaseResponse<>();
         if(session.getAttribute("u_Account").equals("admin")) {
