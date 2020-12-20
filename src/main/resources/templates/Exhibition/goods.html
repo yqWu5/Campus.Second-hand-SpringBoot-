@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"><html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>贵大校园二手交易平台-商品详情页</title>
+	<link rel="stylesheet" th:href="@{layui/css/goods_main.css}">
+	<link rel="stylesheet" th:href="@{layui/css/goods_reset.css}">
+<!--	<script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>-->
+</head>
+<body>
+	<!-- 头部信息 -->
+	<div class="header_con">
+		<div class="header">
+			<div class="welcome">贵州大学校园二手交易平台!</div>
+			<div class="user_login">
+				<a href="">登录</a>
+				<span>|</span>
+				<a href="">注册</a>
+				<span>|</span>
+				<a href="">我的购物车</a>
+				<span>|</span>
+				<a href="">我的订单</a>
+			</div>
+		</div>
+	</div>
+	<div class="search_bar clearfix">
+		<a href="#" class="logo fl"><img src="./images/logo.png"></a>
+		<div class="search_con fl">
+			<input type="text" class="input_text fl" placeholder="搜索商品">
+			<input type="button" class="input_btn fr" value="搜索">
+		</div>
+		<div class="guest_card fr">
+			<a href="#" class="card_name fl">我的购物车</a>
+			<div class="goods_count fl">1</div>
+		</div>
+	</div>
+	<!-- 商品信息栏 -->
+	<div class="navbar_con">
+		<div class="navbar clearfix">
+			<div class="subnav_con fl">
+				<h1>全部商品分类 <i></i></h1>
+			</div>
+			<ul class="navlist fl">
+                <li><a href="">首页</a></li>
+                <li><a href="">手机生鲜</a></li>
+                <li><a href="">抽奖</a></li>
+            </ul>
+		</div>
+	</div>
+
+	<div class="center_con clearfix">
+		<div class="main_menu fl" ><img th:src="${product.getP_href()}" style="height: 350px;width: 350px"></div>
+		<div class="goods_detail_list fr" style="margin-top: 10px">
+			<h3 th:text="${product.getP_Title()}"></h3>
+			<p th:text="${product.getP_Des()}"></p>
+			<div class="prize_bar">
+				<div class="show_prize fl">￥<em th:text="${product.getP_Price()}"></em></div>
+
+			</div>
+			<div class="goods_num clearfix">
+				<div class="num_name fl">数量：</div>
+				<div class="num_add fl">
+					<input type="text" class="num_show fl" value="1">
+					<a href="javascript:;" class="add fr">+</a>
+					<a href="javascript:;" class="minus fr">-</a>
+				</div>
+			</div>
+			<div class="total">总价：<em th:text="${product.getP_Price()}"></em></div>
+			<div class="operate_btn">
+				<a href="" class="buy_btn">立即购买</a>
+				<a href="" class="add_cart">加入购物车</a>
+			</div>
+		</div>
+	</div>
+	
+</body>
+</html>

@@ -48,9 +48,9 @@ public class ProductController {
                 baseResponse.setCount(productService.selectCountByaccount((String) session.getAttribute("u_Account")));
             }
 
-        for(ProductCategory p:product){
-            System.out.println(p.getP_href());
-        }
+//        for(ProductCategory p:product){
+//            System.out.println(p.getP_href());
+//        }
 
         //判断product是否为空
         if(product!=null) {
@@ -171,7 +171,7 @@ public class ProductController {
                        @RequestParam("p_Price") Double p_Price,
                        @RequestParam("p_Des") String p_Des,
                        @RequestParam("c_Id") String c_Id){
-        ProductCategory productCategory=new ProductCategory();
+        ProductCategory productCategory = new ProductCategory();
         productCategory.setP_Account(p_Account);
         productCategory.setP_Date(p_Date);
         productCategory.setP_Des(p_Des);

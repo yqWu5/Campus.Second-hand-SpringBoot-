@@ -1,10 +1,7 @@
 package com.team.springboot.mapper;
 
 import com.team.springboot.pojo.Product;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -30,5 +27,16 @@ public interface ProductMapper {
     //更新产品信息
     @Update("update product set p_Name = #{p_Name},p_Title = #{p_Title},p_Des = #{p_Des},p_Price = #{p_Price} ,p_Date = #{p_Date} where p_Id = #{p_Id}")
     void updateProduct(Product product);
+    //查询图片地址
+    @Select("select p_href, p_href1 from product where p_Id = #{p_Id}")
+    Product imgHref(int p_Id);
+    //更新href
+    @Update("update product set p_href = #{0} where p_Id = #{1}")
+    void setHref(String p_href, int p_Id);
+    //更新href1
+    @Update("update product set p_href1 = #{0} where p_Id = #{1}")
+    void setHref1(String p_href, int p_Id);
 
+    @Select("select * from product where p_Id = #{p_Id}")
+    Product selectById(int p_Id);
 }

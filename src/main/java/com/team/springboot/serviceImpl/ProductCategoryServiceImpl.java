@@ -32,4 +32,9 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
     public List<ProductCategory> selectProductCategorysByaccount(String p_Account, int page, int limit) {
         return productCategoryMapper.selectProductCategorysByaccount(p_Account,(page-1)*limit,limit);
     }
+
+    @Override
+    public List<ProductCategory> selectProductAll() {
+        return productCategoryMapper.selectProductAll();
+    }
 }

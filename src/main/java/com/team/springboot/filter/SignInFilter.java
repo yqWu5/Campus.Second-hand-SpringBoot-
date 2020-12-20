@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebFilter(urlPatterns = "/*",filterName = "logFilter")
+@WebFilter(urlPatterns = "/admin/*",filterName = "logFilter")
 public class SignInFilter implements Filter {
 
     @Override

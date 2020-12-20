@@ -13,9 +13,10 @@ public interface ProductCategoryMapper {
     String selectCidBycName(String c_Name);
     @Insert("insert into product(p_Account,p_Name,c_Id,p_Title,p_Des,p_Price,p_Date) values(#{p_Account}, #{p_Name}, #{c_Id}, #{p_Title}, #{p_Des},#{p_Price},#{p_Date})")
     void insertProductCategory(ProductCategory productCategory);
-    @Select("select p_Id,p_Account,p_Name,c_Name,p_Title,p_Price,p_href from product inner join Category on product.c_Id=Category.c_Id limit #{0}, #{1}")
+    @Select("select p_Id,p_Account,p_Name,c_Name,p_Title,p_Price,p_href,p_href1 from product inner join Category on product.c_Id=Category.c_Id limit #{0}, #{1}")
     List<ProductCategory> selectProductCategorys(int page, int limit);
-    @Select("select p_Id,p_Account,p_Name,c_Name,p_Title,p_Price,p_href from product inner join Category on product.c_Id=Category.c_Id where p_Account = #{0} limit #{1}, #{2}")
+    @Select("select p_Id,p_Account,p_Name,c_Name,p_Title,p_Price,p_href,p_href1 from product inner join Category on product.c_Id=Category.c_Id where p_Account = #{0} limit #{1}, #{2}")
     List<ProductCategory> selectProductCategorysByaccount(String p_Account,int page, int limit);
-
+    @Select("select p_Id,p_Account,p_Name,c_Name,p_Title,p_Price,p_href from product inner join Category on product.c_Id=Category.c_Id")
+    List<ProductCategory> selectProductAll();
 }

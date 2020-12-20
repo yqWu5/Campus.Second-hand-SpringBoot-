@@ -12,4 +12,8 @@ public interface ProductService {
     Product selectProductallById(int p_ID);
     void updateProduct(Product product);
     int selectCountByaccount(String p_Account);
+    Product imgHref(int p_Id);
+    void setHref(String p_href, int p_Id);
+    void setHref1(String p_href, int p_Id);
+    Product selectById(int p_Id);
 }

@@ -10,4 +10,5 @@ public interface ProductCategoryService {
     void insertProductCategory(ProductCategory productCategory);
     List<ProductCategory> selectProductCategorys(int page, int limit);
     List<ProductCategory> selectProductCategorysByaccount(String p_Account,int page, int limit);
+    List<ProductCategory> selectProductAll();
 }

@@ -89,8 +89,9 @@
     });
 </script>
 <script th:inline="javascript">
-    layui.use('table', function(){
+    layui.use(['table','form'], function(){
         var table = layui.table;
+        const form = layui.form;
         table.on('tool(test)', function(obj){ //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
             var data = obj.data; //获得当前行数据
             var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
@@ -182,6 +183,36 @@
                 });
             } else if(layEvent === 'LAYTABLE_TIPS'){
                 layer.alert('Hi，头部工具栏扩展的右侧图标。');
+            }else if(layEvent === 'imgUpload'){ // 上传图片
+                layer.open({
+                    type: 2,
+                    area: ['740px','375px'],
+                    // resize: false,
+                    content: '/imgUploadInit',
+                    cancel: function (index, layero){
+                        tableIns.reload();
+                    },
+                    success: function (layero, index){
+                        const body = layer.getChildFrame('body', index);
+                        body.find('#p_Id').val(data.p_Id);
+                        console.log(data.p_Id);
+                    }
+                });
+            }else if(layEvent == 'imgDel'){ // 编辑图片
+                layer.open({
+                    type: 2,
+                    area: ['740px','375px'],
+                    // resize: false,
+                    content: '/imgUpdateInit',
+                    cancel: function (index, layero){
+                        tableIns.reload();
+                    },
+                    success: function (layero, index){
+                        const body = layer.getChildFrame('body', index);
+                        body.find('#p_Id').val(data.p_Id);
+                        console.log(data.p_Id);
+                    }
+                });
             }
         });
         table.on('toolbar(test)', function(obj){
@@ -224,10 +255,11 @@
                 {field: 'p_Id', title: '物品编号', sort: true}
                 ,{field: 'p_href', title: '物品图片', templet: "<div><img  src=\"{{ d.p_href }}\"></div>"}
                 ,{field: 'p_Account', title: '用户账号',sort: true}
-                ,{field: 'p_Name', title: '物品名称'}
+                // ,{field: 'p_Name', title: '物品名称'}
                 ,{field: 'c_Name', title: '物品类别'}
                 ,{field: 'p_Title', title: '物品标题'}
                 ,{field: 'p_Price', title: '价格',sort: true}
+                ,{field: 'imgLoad',title:'图片操作',toolbar: "#imgBar"}
                 ,{title: '操作', toolbar: '#barDemo'}
             ]]
         });
@@ -243,6 +275,12 @@
         text-align:center;
     }
 </style>
+
+<script type="text/html" id="imgBar">
+    <a class="layui-btn layui-btn-xs" lay-event="imgUpload">上传图片</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="imgDel">编辑图片</a>
+</script>
+
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>

@@ -6,6 +6,13 @@
  <title>贵州大学校园二手交易平台</title>
  <link rel="stylesheet" th:href="@{/layui/css/layui.css}">
  <link rel="stylesheet" th:href="@{layui/css/user_css.css}">
+	<style>
+		.line-limit-length {
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap; //文本不换行，这样超出一行的部分被截取，显示...
+		}
+	</style>
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
@@ -199,139 +206,25 @@
 	<!-- 商品栏 -->
 	 <div class="box">
 	            <!--一个商品-->
-	            <dl>
+	            <dl th:each="p:${productList}" style="margin-left: 50px;margin-bottom: 100px;">
 	                <dt>
 	                    <a href="#">
-	                        <img src="img/shop1.png" />
+	                        <img th:src="${p.getP_href()}"  style="width: 150px;height: 150px;"/>
 	                    </a>
 	                    <i></i>
 	                </dt>
 	                <dd>
-	                    <p> <a href="#">优步智能跑步机</a></p>
-	                    <span>¥2099.00</span>
+	                    <p class="line-limit-length"> <a href="#" th:text="${p.getP_Title()}"></a></p>
+	                    <span th:text="${p.getP_Price()}"></span>
 	                </dd>
 	            </dl>
-	
-	            <dl>
-	                <dt>
-	                    <a href="#">
-	                        <img src="img/shop2.png" />
-	                    </a>
-	                    <i></i>
-	                </dt>
-	                <dd>
-	                    <p> <a href="#">优步智能跑步机</a></p>
-	                    <span>¥2099.00</span>
-	                </dd>
-	            </dl>
-	
-	            <dl>
-	                <dt>
-	                    <a href="#">
-	                        <img src="img/shop3.png" />
-	                    </a>
-	                    <i></i>
-	                </dt>
-	
-	                <dd>
-	                    <p> <a href="#">优步智能跑步机</a></p>
-	                    <span>¥2099.00</span>
-	                </dd>
-	            </dl>
-	            <dl>
-	                <dt>
-	                    <a href="#">
-	                        <img src="img/shop4.png" />
-	                    </a>
-	                    <i></i>
-	                </dt>
-	
-	                <dd>
-	                    <p> <a href="#">优步智能跑步机</a></p>
-	                    <span>¥2099.00</span>
-	                </dd>
-	            </dl>
-	            <dl>
-	                <dt>
-	                    <a href="#">
-	                        <img src="img/shop1.png" />
-	                    </a>
-	                    <i></i>
-	                </dt>
-	
-	                <dd>
-	                    <p> <a href="#">优步智能跑步机</a></p>
-	                    <span>¥2099.00</span>
-	                </dd>
-	            </dl>
-	            <dl>
-	                <dt>
-	                    <a href="#">
-	                        <img src="img/shop1.png" />
-	                    </a>
-	                    <i></i>
-	                </dt>
-	
-	                <dd>
-	                    <p> <a href="#">优步智能跑步机</a></p>
-	                    <span>¥2099.00</span>
-	                </dd>
-	            </dl>
-	            <dl>
-	                <dt>
-	                    <a href="#">
-	                        <img src="img/shop1.png" />
-	                    </a>
-	                    <i></i>
-	                </dt>
-	                <dd>
-	                    <p> <a href="#">优步智能跑步机</a></p>
-	                    <span>¥2099.00</span>
-	                </dd>
-	            </dl>
-	            <dl>
-	                <dt>
-	                    <a href="#">
-	                        <img src="img/shop1.png" />
-	                    </a>
-	                    <i></i>
-	                </dt>
-	                <dd>
-	                    <p> <a href="#">优步智能跑步机</a></p>
-	                    <span>¥2099.00</span>
-	                </dd>
-	            </dl>
-	            <dl>
-	                <dt>
-	                    <a href="#">
-	                        <img src="img/shop1.png" />
-	                    </a>
-	                    <i></i>
-	                </dt>
-	                <dd>
-	                    <p> <a href="#">优步智能跑步机</a></p>
-	                    <span>¥2099.00</span>
-	                </dd>
-	            </dl>
-	            <dl>
-	                <dt>
-	                    <a href="#">
-	                        <img src="img/shop1.png" />
-	                    </a>
-	                    <i></i>
-	                </dt>
-	                <dd>
-	                    <p> <a href="#">优步智能跑步机</a></p>
-	                    <span>¥2099.00</span>
-	                </dd>
-	            </dl>
-	        </div>
+	 </div>
 	
 	
-    <div style="padding: 15px;">内容主体区域</div>
+    <div style="padding: 15px;"></div>
 	
 	<div  style="margin-bottom: 3px; margin-left: 300px;">
-		Copyright © 2020-12-08 by www.gzusecondhand.com.cn. all rights reserved
+
 	</div>
   </div>
   

@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"><html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>贵州大学校园二手交易平台</title>
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}">
+    <link rel="stylesheet" th:href="@{layui/user.js}">
+    <link rel="stylesheet" th:href="@{layui/css/user.css}">
+</head>
+
+<body>
+<div class="web-shop">
+    <!-- 头部导航条 -->
+    <div class="header">
+        <div class="container">
+            <ul class="nav">
+                <li>
+                    <a href="javascript:;" class="arrow">中国大陆</a>
+                </li>
+                <li class="orange">
+                    <a th:href="@{/login}">同学，请登录</a>
+                </li>
+                <li>
+                    <a href="javascript:;">免费注册</a>
+                </li>
+
+            </ul>
+            <ul class="nav">
+                <li>
+                    <a href="javascript:;" class="arrow">我的平台</a>
+                </li>
+                <li>
+                    <a href="javascript:;" class="arrow">购物车</a>
+                </li>
+                <li>
+                    <span class="start" class="arrow"></span>
+                    <a href="javascript:;">收藏夹</a>
+                </li>
+                <li>
+                    <a href="javascript:;" class="arrow">物品分类</a>
+                </li>
+                <li>
+                    <a href="javascript:;" class="arrow">卖家中心</a>
+                </li>
+                <li>
+                    <a href="javascript:;" class="arrow">联系客服</a>
+                </li>
+                <li>
+                    <a href="javascript:;" class="arrow">网站导航</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="body-1">
+        <!-- 搜索框 -->
+        <div class="search">
+            <div class="search-logo">
+                <a href="https://www.taobao.com/"></a>
+            </div>
+            <div class="search-box">
+                <ul class="search-tab">
+                    <a href="javascript:;" class="choose1">贵大</a>
+                    <a href="javascript:;">二手</a>
+                    <a href="javascript:;">交易</a>
+                </ul>
+                <form class="search-input">
+                    <input class="box1" type="text" name="search">
+                    <button class="btn" type="submit">搜索</button>
+                </form>
+
+                <div class="search-choose">
+                    <a href="javascript:;">新款教材</a>
+                    <a href="javascript:;">电动车</a>
+                    <a href="javascript:;" class="tx">自行车</a>
+                    <a href="javascript:;">往年考试例卷</a>
+                    <a href="javascript:;">衣服甩卖</a>
+                    <a href="javascript:;">床上书桌</a>
+                    <a href="javascript:;">电脑</a>
+                    <a href="javascript:;">四六级收音机</a>
+                    <a href="javascript:;">耳机</a>
+                </div>
+            </div>
+            <div class="search-code">
+                <a href="javascript:;">
+                    <img src="./img/jnh.png" alt="">
+                </a>
+            </div>
+        </div>
+        <!-- 导航栏 -->
+        <ul class="nav">
+            <li class="left-nav">主题市场</li>
+            <li class="li">教材书籍</li>
+            <li class="li">电子设备</li>
+            <li class="li">|</li>
+            <li class="li">生活用品</li>
+            <li class="li">乐器物品</li>
+            <li class="li">电动单车</li>
+            <li class="li">|</li>
+            <li class="li">美妆护理</li>
+            <li class="li">维修</li>
+            <li class="li">快递代拿</li>
+        </ul>
+        <!-- 内容区域 -->
+        <div class="shop" id="">
+            <!-- 左侧功能条 -->
+            <ul class="left-items" id="left-items">
+                <li class="left-items-li">
+                    <a href="javascript:;">教材图书</a>
+
+                </li>
+                <li class="left-items-li">
+                    <a href="javascript:;">笔记本</a> /
+                    <a href="javascript:;">台式电脑</a> /
+                    <a href="javascript:;">平板电脑</a>
+
+                </li>
+                <li class="left-items-li">
+                    <a href="javascript:;">手表</a> /
+                    <a href="javascript:;">眼镜</a> /
+                    <a href="javascript:;">伞</a>
+
+                </li>
+                <li class="left-items-li">
+                    <a href="javascript:;">网球</a> /
+                    <a href="javascript:;">网球拍</a> /
+                    <a href="javascript:;">乒乓球拍</a>
+
+                </li>
+                <li class="left-items-li">
+                    <a href="javascript:;">足球鞋</a> /
+                    <a href="javascript:;">篮球鞋</a> /
+                    <a href="javascript:;">板鞋</a>
+
+                </li>
+                <li class="left-items-li">
+                    <a href="javascript:;">手提包</a> /
+                    <a href="javascript:;">女士手表</a> /
+                    <a href="javascript:;">女装</a>
+
+                </li>
+                <li class="left-items-li">
+                    <a href="javascript:;">冰箱</a> /
+                    <a href="javascript:;">沙发</a> /
+                    <a href="javascript:;">旅游箱</a>
+
+                </li>
+                <li class="left-items-li">
+                    <a href="javascript:;">手机</a> /
+                    <a href="javascript:;">相机</a> /
+                    <a href="javascript:;">耳机</a>
+
+                </li>
+                <li class="left-items-li">
+                    <a href="javascript:;">屏幕</a> /
+                    <a href="javascript:;">键盘</a> /
+                    <a href="javascript:;">鼠标</a>
+
+                </li>
+                <li class="left-items-li">
+                    <a href="javascript:;">音乐专辑</a> /
+                    <a href="javascript:;">手办</a> /
+                    <a href="javascript:;">背包</a>
+
+                </li>
+                <li class="left-items-li">
+                    <a href="javascript:;">游戏机</a> /
+                    <a href="javascript:;">游戏手柄</a> /
+                    <a href="javascript:;">游戏卡</a>
+
+                </li>
+                <li class="left-items-li">
+                    <a href="javascript:;">虚位以待</a>
+
+
+                </li>
+                <li class="left-items-li">
+                    <a href="javascript:;">虚位以待</a>
+
+                </li>
+                <li class="left-items-li">
+                    <a href="javascript:;">虚位以待</a>
+
+                </li>
+                <div class="left-items-content" id="left-items-content">
+
+                </div>
+            </ul>
+            <!-- 图片展示区 -->
+            <div class="img-box">
+                <div>
+                    <img src="./img/tu1.jpg" alt="">
+                    <img src="./img/tu2.jpg" alt="">
+                </div>
+                <div>
+                    <img src="./img/tu3.jpg" alt="">
+                    <img src="./img/tu4.jpg" alt="">
+                </div>
+            </div>
+            <!--信息展示区-->
+            <div class="tu-right">
+                <div class="right-icon">
+                    <img src="./img/hi.png" alt="">
+                </div>
+                <div class="right-btn">
+                    <a href="javascript:;">登录</a>
+                    <a href="javascript:;">注册</a>
+                    <a href="javascript:;">售卖</a>
+                </div>
+                <div class="right-warn">有害信息举报专区</div>
+                <div class="right-info">
+                    <ul class="info-top">
+                        <li><a href="javascript:;">公告</a></li>
+                        <li><a href="javascript:;">规则</a></li>
+                        <li><a href="javascript:;">论坛</a></li>
+                        <li><a href="javascript:;">安全</a></li>
+                    </ul>
+                    <ul class="info-bottom">
+                        <li>期末考试季，往年考试例卷往这看！！！！</li>
+                        <li>天气冷了，记得多喝热水！</li>
+                    </ul>
+                </div>
+                <ul class="right-rechage">
+                    <li><a class="icon icon-1" href="javascript:;"></a>
+                        <p>代拿快递</p>
+                    </li>
+                    <li><a class="icon icon-2" href="javascript:;"></a>
+                        <p>校园代课</p>
+                    </li>
+                    <li><a class="icon icon-3" href="javascript:;"></a>
+                        <p>跑腿</p>
+                    </li>
+                    <li><a class="icon icon-4" href="javascript:;"></a>
+                        <p>游戏开黑</p>
+                    </li>
+                    <li><a href="javascript:;" class="icon icon-1"></a>
+                        <p>LOL</p>
+                    </li>
+                    <li><a href="javascript:;" class="icon icon-2"></a>
+                        <p>吃鸡</p>
+                    </li>
+                    <li><a href="javascript:;" class="icon icon-3"></a>
+                        <p>DNF</p>
+                    </li>
+                    <li><a href="javascript:;" class="icon icon-4"></a>
+                        <p>魔兽</p>
+                    </li>
+                    <li><a href="javascript:;" class="icon icon-1"></a>
+                        <p>校园交友</p>
+                    </li>
+                    <li><a href="javascript:;" class="icon icon-2"></a>
+                        <p>翻修电脑</p>
+                    </li>
+                    <li><a href="javascript:;" class="icon icon-3"></a>
+                        <p>电脑清灰</p>
+                    </li>
+                    <li><a href="javascript:;" class="icon icon-4"></a>
+                        <p>未完待续</p>
+                    </li>
+                    <li><a href="javascript:;" class="icon icon-1"></a>
+                        <p>未完待续</p>
+                    </li>
+                    <li><a href="javascript:;" class="icon icon-2"></a>
+                        <p>未完待续</p>
+                    </li>
+                    <li><a href="javascript:;" class="icon icon-3"></a>
+                        <p>未完待续</p>
+                    </li>
+                    <li><a href="javascript:;" class="icon icon-4"></a>
+                        <p>未完待续</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- 商品栏 -->
+
+    <div class="body-3">
+        <h1 class="title-h1">
+            <div class="icon"></div>热卖单品
+        </h1>
+        <div class="content">
+            <div class="item"  th:each="p:${productList}">
+                <a th:href="@{/goodsDetail(pid=${p.getP_Id()})}">
+                    <img th:src="${p.getP_href()}"  style="width: 150px;height: 150px;"/>
+                </a>
+                <p class="line-limit-length"> <a href="#" th:text="${p.getP_Title()}"></a></p>
+                <span th:text="${p.getP_Price()}"></span>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+        <div class="layui-collapse" lay-accordion style="margin-bottom: 50px">
+            <div class="layui-colla-item" style="text-align: center;">
+                <h2 class="layui-colla-title">Copyright © 2020-12-18 by wyq.smj.wzp all rights reserved</h2>
+            </div>
+        </div>
+
+</div>
+
+
+<script src= th:href="@{layui/css/user.css}"></script>
+</body>
+
+
+</html>
+
