@@ -75,4 +75,9 @@ public class UserServiceImpl implements UserService {
     public List<User> selectUserByIdrtlist(String u_Account) {
         return usermapper.selectUserByIdrtlist(u_Account);
     }
+
+    @Override
+    public void updateHeadp(String url, String u_Account) {
+        usermapper.updateHeadp(url, u_Account);
+    }
 }

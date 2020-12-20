@@ -61,7 +61,7 @@
             const field = data.field;
             console.log(field);
             $.ajax({
-                url: 'add',
+                url: '/regists/add',
                 type: 'POST',
                 contentType: "application/json;charset=utf-8",
                 data: JSON.stringify(field),

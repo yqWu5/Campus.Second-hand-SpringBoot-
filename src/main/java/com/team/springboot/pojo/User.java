@@ -8,6 +8,15 @@ public class User {
     private String u_RePassword;
     private String u_Email;
     private String u_Sex;
+    private String u_Url;
+
+    public String getU_Url() {
+        return u_Url;
+    }
+
+    public void setU_Url(String u_Url) {
+        this.u_Url = u_Url;
+    }
 
     public String getU_Account() {
         return u_Account;

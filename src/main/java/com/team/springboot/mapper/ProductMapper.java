@@ -15,6 +15,12 @@ public interface ProductMapper {
     int selectCount();
     @Select("select count(*) from product where p_Account = #{0}")
     int selectCountByaccount(String p_Account);
+
+    @Select("select count(*) from product where p_Name like #{0}")
+    int selectCountByp_Name(String p_Name);
+    @Select("select count(*) from product where p_Account = #{0} AND p_Name like #{1}")
+    int selectCountByp_nameAndaccount(String p_Account,String p_Name);
+
     //根据ID查找产品的部分信息
     @Select("select p_Id,p_Account,p_Name,p_Title,p_Price from product where p_Id = #{0}")
     Product selectProductById(int p_ID);

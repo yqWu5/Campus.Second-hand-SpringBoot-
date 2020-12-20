@@ -25,6 +25,7 @@
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item">
                 <a href="javascript:">
+                    <img th:src= "${user.u_Url}" class="layui-nav-img">
                     我的
                 </a>
                 <dl class="layui-nav-child">
@@ -71,6 +72,14 @@
                     <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
                         <legend>个人信息</legend>
                     </fieldset>
+                    <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">头像:</label>
+                        <a src="go()" style="cursor: pointer">
+                            <img class="layui-upload-img" th:src="${user.u_Url}" width="100px" height="100px" alt="点击上传" onclick="go()">
+                        </a>
+                    </div>
+                    </div>
                     <div class="layui-form-item">
                         <div class="layui-inline">
                             <label class="layui-form-label">账号:</label>
@@ -222,7 +231,6 @@
         const form = layui.form;
         const layer = layui.layer;
         const $ = layui.$;
-        form.render();
 
         form.on('submit(userInfo)', function(data){ <!-- 监听个人信息的修改 -->
             const field = data.field;
@@ -295,7 +303,17 @@
     function toAdmin(){ <!-- 转跳 -->
         window.location.href = '/admin/userInfo';
     }
-
+    function go(){
+        layui.use('layer', function(){
+            var layer = layui.layer;
+            layer.open({
+                title: false,
+                type:2,
+                area: ['500px', '500px'],
+                content:"/admin/userhead",
+            });
+        });
+    }
 </script>
 </body>
 </html>

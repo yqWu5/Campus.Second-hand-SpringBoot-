@@ -23,17 +23,8 @@
     <div class="layui-form-item">
         <label class="layui-form-label">物品类别</label>
         <div class="layui-input-inline">
-            <select name="c_Id" lay-verify="" required>
-                <option value="">请选择一种类别</option>
-                <option value="c01">笔记本电脑</option>
-                <option value="c02">台式电脑</option>
-                <option value="c03">平板电脑</option>
-                <option value="c04">男士手表</option>
-                <option value="c05">雨伞</option>
-                <option value="c06">太阳伞</option>
-                <option value="c07">太阳眼镜</option>
-                <option value="c08">足球</option>
-                <option value="c09">篮球</option>
+            <select name="c_Id" id="o_type" lay-verify="required" lay-filter="xmFilter">
+                <option value="请选择"></option>
             </select>
         </div>
     </div>
@@ -67,5 +58,24 @@
     </div>
 </form>
 <script th:src="@{/layui/layui.all.js}"></script>
+<script>
+    layui.use(['element','form','layer','table'], function(){
+        const form = layui.form;
+        const $ = layui.$;
+        const table = layui.table;
+        $.ajax({  // select框ajax动态赋值
+            url: 'typeValue',
+            type: 'POST',
+            contentType: "application/json;charset=utf-8",
+            success: function (res) {
+                const field = res.data;
+                $.each(field, function (index, item) {  // $.each表示对JavaScript中数组对象的遍历，函数第一个参数为下标，第二个参数为下标对应的值
+                    $('#o_type').append(new Option(item,"c"+(index+1)));// 下拉菜单里添加元素
+                });
+                form.render("select");
+            }
+        });
+    })
+</script>
 </body>
 </html>

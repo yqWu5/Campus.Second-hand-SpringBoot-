@@ -12,4 +12,6 @@ public interface ProductService {
     Product selectProductallById(int p_ID);
     void updateProduct(Product product);
     int selectCountByaccount(String p_Account);
+    int selectCountByp_Name(String p_Name);
+    int selectCountByp_nameAndaccount(String p_Account,String p_Name);
 }
