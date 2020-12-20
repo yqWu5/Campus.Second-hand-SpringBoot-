@@ -98,6 +98,7 @@
             elem: '#orderInfo'
             ,url: 'BuyOrderInfo' //数据接口
             ,page: true
+            ,id: 'reloadTest'
             ,limit: 10
             ,cols: [[ //表头
                 {field: 'o_Id', title: '订单编号',  sort: true, fixed: 'left', width: 200}
@@ -119,6 +120,12 @@
                     title:false,
                     area: ['454px','394px'],
                     resize: false,
+                    cancel: function (index, layero){
+                        table.reload('reloadTest',{
+                            url: 'BuyOrderInfo',
+                            where: {}
+                        })
+                    },
                     content:'OrderAddressUpdate',
                     success: function (layero, index){ //传值
                         const body = layer.getChildFrame('body', index);
@@ -137,6 +144,7 @@
                        data: JSON.stringify(data),
                        success: function (res){
                            if(res.code === 200){
+                               tableIns.reload();
                                layer.msg(res.msg);
                            }else if(res.code === 500){
                                layer.msg(res.msg);
@@ -146,6 +154,10 @@
                            layer.msg(res.msg);
                        }
                    });
+                    table.reload('reloadTest',{
+                        url: 'BuyOrderInfo',
+                        where: {}
+                    });
                 });
             }else if(layEvent == 'detial'){
                 layer.open({
@@ -154,6 +166,12 @@
                     area: ['300px','226px'],
                     resize: false,
                     content:'OrderStatusInit',
+                    cancel: function (index, layero){
+                        table.reload('reloadTest',{
+                            url: 'BuyOrderInfo',
+                            where: {}
+                        })
+                    },
                     success: function (layero, index){
                         const Status = data.o_Status;
                         const oId = data.o_Id;

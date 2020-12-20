@@ -1,20 +1,16 @@
 package com.team.springboot.controller;
 
 import com.mysql.jdbc.StringUtils;
-import com.team.springboot.mapper.ProductMapper;
 import com.team.springboot.pojo.*;
 import com.team.springboot.service.ProductCategoryService;
 import com.team.springboot.service.ProductService;
-import com.team.springboot.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -22,11 +18,13 @@ import java.util.List;
 public class ProductController {
     @Autowired
     ProductService productService;
+    
     @Autowired
     ProductCategoryService productCategoryService;
-
+    
     @RequestMapping("/init")
-    public String showproductInfo() {
+    public String showproductInfo(HttpSession session, Model m) {
+        String account = (String) session.getAttribute("u_Account");
         return "admin/productInfo";
     }
 
@@ -34,48 +32,26 @@ public class ProductController {
     @ResponseBody
     public BaseResponse productinfo (@RequestParam String page,
                                      @RequestParam String limit,
-                                     HttpServletRequest request){
-        String p_Name=request.getParameter("p_Name");
+                                     HttpSession session){
         BaseResponse<List<ProductCategory>> baseResponse = new BaseResponse<>();
         List<ProductCategory> product;
-        HttpSession session =request.getSession();
-        //通过商品名称查询
-        if(p_Name!=null){
-            p_Name="%"+p_Name+"%";
-            if (session.getAttribute("u_Account").equals("admin")) {
-                product = productCategoryService.selectProductCategorysByp_name(StringUtils.isNullOrEmpty(page) ? 1 : Integer.valueOf(page),
-                        StringUtils.isNullOrEmpty(limit) ? 10 : Integer.valueOf(limit),
-                        p_Name);
-                baseResponse.setCount(productService.selectCountByp_Name(p_Name));
-                baseResponse.setData(product);
-                baseResponse.setCode(200);
-                baseResponse.setMsg("请求成功");
-                return baseResponse;
-            }
-            else{
-                String p_Account=(String) session.getAttribute("u_Account");
-                product= productCategoryService.selectProductCategorysByp_nameAndaccount(StringUtils.isNullOrEmpty(page) ? 1 : Integer.valueOf(page),
-                        StringUtils.isNullOrEmpty(limit) ? 10 : Integer.valueOf(limit),
-                        p_Name,
-                        p_Account);
-                baseResponse.setCount(productService.selectCountByp_nameAndaccount(p_Account,p_Name));
-                baseResponse.setData(product);
-                baseResponse.setCode(200);
-                baseResponse.setMsg("请求成功");
-                return baseResponse;
-            }
-        }
-            //分页查询每页10条
-            if (session.getAttribute("u_Account").equals("admin")) {
+        //分页查询每页10条
+            if(session.getAttribute("u_Account").equals("admin")) {
                 product = productCategoryService.selectProductCategorys(StringUtils.isNullOrEmpty(page) ? 1 : Integer.valueOf(page),
                         StringUtils.isNullOrEmpty(limit) ? 10 : Integer.valueOf(limit));
                 baseResponse.setCount(productService.selectCount());
-            } else {
-                product = productCategoryService.selectProductCategorysByaccount((String) session.getAttribute("u_Account"),
-                        StringUtils.isNullOrEmpty(page) ? 1 : Integer.valueOf(page),
-                        StringUtils.isNullOrEmpty(limit) ? 10 : Integer.valueOf(limit));
+            }
+            else{
+                product=productCategoryService.selectProductCategorysByaccount((String) session.getAttribute("u_Account"),
+                        StringUtils.isNullOrEmpty(page)?1:Integer.valueOf(page),
+                        StringUtils.isNullOrEmpty(limit)?10:Integer.valueOf(limit));
                 baseResponse.setCount(productService.selectCountByaccount((String) session.getAttribute("u_Account")));
             }
+
+//        for(ProductCategory p:product){
+//            System.out.println(p.getP_href());
+//        }
+
         //判断product是否为空
         if(product!=null) {
             baseResponse.setData(product);
@@ -195,7 +171,7 @@ public class ProductController {
                        @RequestParam("p_Price") Double p_Price,
                        @RequestParam("p_Des") String p_Des,
                        @RequestParam("c_Id") String c_Id){
-        ProductCategory productCategory=new ProductCategory();
+        ProductCategory productCategory = new ProductCategory();
         productCategory.setP_Account(p_Account);
         productCategory.setP_Date(p_Date);
         productCategory.setP_Des(p_Des);
@@ -209,17 +185,5 @@ public class ProductController {
         }
         else
         return "admin/productadd";
-    }
-    @RequestMapping("/typeValue")
-    @ResponseBody
-    public BaseResponse selectproductTypeValue(){
-        BaseResponse<List<String>> baseResponse = new BaseResponse<>();
-        List<ProductCategory>list=productCategoryService.selectAllcName();
-        List<String> list1 = new ArrayList<>();
-        for(ProductCategory p :list)
-            list1.add(p.getC_Name());
-        baseResponse.setCode(200);
-        baseResponse.setData(list1);
-        return baseResponse;
     }
 }

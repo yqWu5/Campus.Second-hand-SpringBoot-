@@ -5,7 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
     <title>商品管理</title>
     <link rel="stylesheet" th:href="@{/layui/css/layui.css}"/>
-    <link rel="stylesheet" th:href="@{/layui/css/login.css}">
+    <style type="text/css">
+        .layui-table-cell{
+            height: auto!important;
+            white-space: normal;
+        }
+    </style>
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
@@ -26,7 +31,6 @@
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item">
                 <a href="javascript:">
-                    <img th:src= "${session.url}" class="layui-nav-img">
                     我的
                 </a>
                 <dl class="layui-nav-child">
@@ -67,13 +71,8 @@
 
     <div class="layui-body">
         <!-- 内容主体区域 -->
-        <div class="demoTable" style="margin-top: 10px">
-            <div class="layui-col-md4">
-                <input class="layui-input" name="productId" id="demoReload" autocomplete="off" placeholder="请输入商品名称">
-            </div>
-            <button class="layui-btn" data-type="reload" >搜索</button>
-        </div>
         <table id="demo" lay-filter="test"></table>
+
     </div>
 
     <div class="layui-footer">
@@ -89,9 +88,10 @@
 
     });
 </script>
-<script>
-    layui.use('table', function(){
+<script th:inline="javascript">
+    layui.use(['table','form'], function(){
         var table = layui.table;
+        const form = layui.form;
         table.on('tool(test)', function(obj){ //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
             var data = obj.data; //获得当前行数据
             var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
@@ -183,24 +183,39 @@
                 });
             } else if(layEvent === 'LAYTABLE_TIPS'){
                 layer.alert('Hi，头部工具栏扩展的右侧图标。');
-            }
-        });
-        var $ = layui.$, active = {
-            reload: function(){
-                var demoReload = $('#demoReload');
-
-                table.reload('testReload', {
-                    where: {
-                        p_Name: demoReload.val()
+            }else if(layEvent === 'imgUpload'){ // 上传图片
+                layer.open({
+                    type: 2,
+                    area: ['740px','375px'],
+                    // resize: false,
+                    content: '/imgUploadInit',
+                    cancel: function (index, layero){
+                        tableIns.reload();
+                    },
+                    success: function (layero, index){
+                        const body = layer.getChildFrame('body', index);
+                        body.find('#p_Id').val(data.p_Id);
+                        console.log(data.p_Id);
+                    }
+                });
+            }else if(layEvent == 'imgDel'){ // 编辑图片
+                layer.open({
+                    type: 2,
+                    area: ['740px','375px'],
+                    // resize: false,
+                    content: '/imgUpdateInit',
+                    cancel: function (index, layero){
+                        tableIns.reload();
+                    },
+                    success: function (layero, index){
+                        const body = layer.getChildFrame('body', index);
+                        body.find('#p_Id').val(data.p_Id);
+                        console.log(data.p_Id);
                     }
                 });
             }
-        };
-        $('.demoTable .layui-btn').on('click', function(){
-            var type = $(this).data('type');
-            active[type] ? active[type].call(this) : '';
         });
-    table.on('toolbar(test)', function(obj){
+        table.on('toolbar(test)', function(obj){
             const $=layui.$;
             var checkStatus = table.checkStatus(obj.config.id);
             switch(obj.event){
@@ -231,25 +246,41 @@
             ,url: '/admin/productInfo' //数据接口
             ,toolbar: '#toolbarDemo'
             , page: true
-            , id: 'testReload'
             ,limit:10
             ,limits:[10,30,50]
             ,response: {
                 statusCode: 200 //规定成功的状态码，默认：0
             }
             ,cols: [[ //表头
-                {field: 'p_Id', title: '物品编号', sort: true, fixed: 'left'}
+                {field: 'p_Id', title: '物品编号', sort: true}
+                ,{field: 'p_href', title: '物品图片', templet: "<div><img  src=\"{{ d.p_href }}\"></div>"}
                 ,{field: 'p_Account', title: '用户账号',sort: true}
-                ,{field: 'p_Name', title: '物品名称'}
+                // ,{field: 'p_Name', title: '物品名称'}
                 ,{field: 'c_Name', title: '物品类别'}
                 ,{field: 'p_Title', title: '物品标题'}
                 ,{field: 'p_Price', title: '价格',sort: true}
-                ,{fixed: 'right', title: '操作',width:175, align:'center', toolbar: '#barDemo'}
+                ,{field: 'imgLoad',title:'图片操作',toolbar: "#imgBar"}
+                ,{title: '操作', toolbar: '#barDemo'}
             ]]
         });
     });
-
 </script>
+
+<style type="text/css">
+    .laytable-cell-1-p_href{
+        height:100%;
+        max-width:100%
+    }
+    .layui-table-cell{
+        text-align:center;
+    }
+</style>
+
+<script type="text/html" id="imgBar">
+    <a class="layui-btn layui-btn-xs" lay-event="imgUpload">上传图片</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="imgDel">编辑图片</a>
+</script>
+
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
@@ -258,7 +289,7 @@
 
 <script type="text/html" id="toolbarDemo">
     <div class="layui-btn-container">
-        <button class="layui-btn layui-btn-sm" lay-event="add"><i class="layui-icon">&#xe624;</i>   添加</button>
+        <button class="layui-btn layui-btn-sm" lay-event="add">添加</button>
     </div>
 </script>
 </body>

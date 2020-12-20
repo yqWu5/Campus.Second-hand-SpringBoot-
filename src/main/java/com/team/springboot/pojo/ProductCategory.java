@@ -12,6 +12,15 @@ public class ProductCategory {
     private Date p_Date;
     private Double p_Price;
     private String p_Des;
+    private String p_href;
+
+    public String getP_href() {
+        return p_href;
+    }
+
+    public void setP_href(String p_href) {
+        this.p_href = p_href;
+    }
 
     public int getP_Id() {
         return p_Id;

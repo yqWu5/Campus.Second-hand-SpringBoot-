@@ -51,13 +51,23 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public int selectCountByp_Name(String p_Name) {
-        return productMapper.selectCountByp_Name(p_Name);
+    public Product imgHref(int p_Id) {
+        return productMapper.imgHref(p_Id);
     }
 
     @Override
-    public int selectCountByp_nameAndaccount(String p_Account, String p_Name) {
-        return productMapper.selectCountByp_nameAndaccount(p_Account, p_Name);
+    public void setHref(String p_href, int p_Id){
+        productMapper.setHref(p_href, p_Id);
+    }
+
+    @Override
+    public void setHref1(String p_href, int p_Id) {
+        productMapper.setHref1(p_href,p_Id);
+    }
+
+    @Override
+    public Product selectById(int p_Id) {
+        return productMapper.selectById(p_Id);
     }
 
 }
