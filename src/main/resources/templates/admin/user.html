@@ -224,6 +224,12 @@
         });
     });
 </script>
+<script th:if="${session.u_Account} ne 'admin'">
+    layui.use('layer', function(){
+        var layer = layui.layer;
+        layer.msg('权限不足，请联系管理员给予权限');
+    });
+</script>
 <script type="text/html" id="barDemo" th:if="${session.u_Account} eq 'admin'">
     <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>

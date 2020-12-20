@@ -70,4 +70,14 @@ public class ProductServiceImpl implements ProductService {
         return productMapper.selectById(p_Id);
     }
 
+    @Override
+    public int selectCountByp_Name(String p_Name) {
+        return productMapper.selectCountByp_Name(p_Name);
+    }
+
+    @Override
+    public int selectCountByp_nameAndaccount(String p_Account, String p_Name) {
+        return productMapper.selectCountByp_nameAndaccount(p_Account, p_Name);
+    }
+
 }

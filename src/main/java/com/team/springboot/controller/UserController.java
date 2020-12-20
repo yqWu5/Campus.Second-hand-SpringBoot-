@@ -12,9 +12,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 
@@ -33,6 +39,7 @@ public class UserController {
         String account = (String) session.getAttribute("u_Account");
         User user = userService.selectUserById(account);
         Address addr= userService.selectAddressAll(account);
+        session.setAttribute("url", user.getU_Url());
         m.addAttribute("user", user);
 
         if(addr == null) {
@@ -136,6 +143,64 @@ public class UserController {
         }
         return baseResponse;
     }
+
+    @RequestMapping("/userhead")
+    public String userhead() {
+        return "admin/uploadheadp";
+    }
+    //上传用户自定义头像
+    @RequestMapping(value="/uploadSource" , method = RequestMethod.POST)
+    @ResponseBody
+    public BaseResponse uploadSource(@RequestParam("file") MultipartFile file , HttpServletRequest request) throws IOException {
+        BaseResponse baseResponse=new BaseResponse();
+        System.out.println(file);
+        String pathString = null;
+        if(file!=null) {
+            String path=request.getRealPath("/images/user/");
+            String name= new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()) + "_" +file.getOriginalFilename();
+            pathString = path + name;
+            File files=new File(pathString);
+            //把内存图片写入磁盘中
+            file.transferTo(files);
+            String realPath = "/images/user/"+name;
+            baseResponse.setCode(200);
+            baseResponse.setMsg(pathString);
+            User user=userService.selectUserById((String) request.getSession().getAttribute("u_Account"));
+
+            //删除服务器里的文件
+            File filesdelete =new File(request.getRealPath("/")+user.getU_Url());
+            if(filesdelete.exists()&&!user.getU_Url().contains("default")) {
+                filesdelete.delete();
+                System.out.println("文件已经删除");
+            }
+
+            //更新数据库
+            userService.updateHeadp(realPath, (String) request.getSession().getAttribute("u_Account"));
+        }
+        else{
+            baseResponse.setCode(500);
+            baseResponse.setMsg("出现错误");
+        }
+        return baseResponse;
+    }
+    //上传默认头像
+    @RequestMapping(value="/uploaddefault")
+    @ResponseBody
+    public BaseResponse uploaddefault(@RequestBody User user , HttpServletRequest request) throws IOException {
+        BaseResponse baseResponse=new BaseResponse();
+        baseResponse.setCode(200);
+        User u1=userService.selectUserById((String) request.getSession().getAttribute("u_Account"));
+        //删除服务器里的文件
+        File filesdelete =new File(request.getRealPath("/")+u1.getU_Url());
+        if(filesdelete.exists()&& !u1.getU_Url().contains("default")) {
+            filesdelete.delete();
+            System.out.println("文件已经删除");
+        }
+        //更新数据库
+        userService.updateHeadp(user.getU_Url(), (String) request.getSession().getAttribute("u_Account"));
+        return baseResponse;
+    }
+
 
     // 退出登录
     @RequestMapping("/quit")

@@ -16,4 +16,6 @@ public interface ProductService {
     void setHref(String p_href, int p_Id);
     void setHref1(String p_href, int p_Id);
     Product selectById(int p_Id);
+    int selectCountByp_Name(String p_Name);
+    int selectCountByp_nameAndaccount(String p_Account,String p_Name);
 }

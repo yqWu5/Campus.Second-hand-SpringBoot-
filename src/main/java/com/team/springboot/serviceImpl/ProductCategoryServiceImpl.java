@@ -37,4 +37,18 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
     public List<ProductCategory> selectProductAll() {
         return productCategoryMapper.selectProductAll();
     }
+
+    @Override
+    public List<ProductCategory> selectProductCategorysByp_name(int page, int limit, String p_Name) {
+        return productCategoryMapper.selectProductCategorysByp_name((page-1)*limit,limit,p_Name);
+    }
+
+    @Override
+    public List<ProductCategory> selectProductCategorysByp_nameAndaccount(int page, int limit, String p_Name, String p_Account) {
+        return productCategoryMapper.selectProductCategorysByp_nameAndaccount((page-1)*limit,limit, p_Name, p_Account);
+    }
+    @Override
+    public List<ProductCategory> selectAllcName() {
+        return productCategoryMapper.selectAllcName();
+    }
 }

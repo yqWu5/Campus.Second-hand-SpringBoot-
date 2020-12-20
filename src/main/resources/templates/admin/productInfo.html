@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
     <title>商品管理</title>
     <link rel="stylesheet" th:href="@{/layui/css/layui.css}"/>
+    <link rel="stylesheet" th:href="@{/layui/css/login.css}">
     <style type="text/css">
         .layui-table-cell{
             height: auto!important;
@@ -31,6 +32,7 @@
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item">
                 <a href="javascript:">
+                    <img th:src= "${session.url}" class="layui-nav-img">
                     我的
                 </a>
                 <dl class="layui-nav-child">
@@ -71,6 +73,12 @@
 
     <div class="layui-body">
         <!-- 内容主体区域 -->
+        <div class="demoTable" style="margin-top: 10px">
+            <div class="layui-col-md4">
+                <input class="layui-input" name="productId" id="demoReload" autocomplete="off" placeholder="请输入商品名称">
+            </div>
+            <button class="layui-btn" data-type="reload" >搜索</button>
+        </div>
         <table id="demo" lay-filter="test"></table>
 
     </div>
@@ -215,6 +223,21 @@
                 });
             }
         });
+        var $ = layui.$, active = {
+            reload: function(){
+                var demoReload = $('#demoReload');
+
+                table.reload('testReload', {
+                    where: {
+                        p_Name: demoReload.val()
+                    }
+                });
+            }
+        };
+        $('.demoTable .layui-btn').on('click', function(){
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
         table.on('toolbar(test)', function(obj){
             const $=layui.$;
             var checkStatus = table.checkStatus(obj.config.id);
@@ -248,6 +271,7 @@
             , page: true
             ,limit:10
             ,limits:[10,30,50]
+            , id: 'testReload'
             ,response: {
                 statusCode: 200 //规定成功的状态码，默认：0
             }
