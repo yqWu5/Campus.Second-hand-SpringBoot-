@@ -6,9 +6,10 @@
     <link rel="stylesheet" th:href="@{/layui/css/layui.css}">
     <link rel="stylesheet" th:href="@{/layui/css/login.css}">
 </head>
-<body>
+<body background="/images/background.jpg">
 <div class="login-main">
-    <header class="layui-elip">修改密码</header>
+    <div style="background-color: rgba(0,0,0,0);opacity: 0.8">
+    <header class="layui-elip" style="color: white">修改密码</header>
     <div class="layui-form-item">
         <form class="layui-form" autocomplete="off">
             <div class="layui-input-inline">
@@ -25,6 +26,7 @@
                 <button lay-submit lay-filter="repwd" class="layui-btn" onmouseenter="check()">修改</button>
             </div>
         </form>
+    </div>
     </div>
 </div>
 <script th:src="@{/layui/layui.all.js}"></script>

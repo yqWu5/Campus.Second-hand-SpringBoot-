@@ -6,10 +6,11 @@
     <link rel="stylesheet" th:href="@{/layui/css/layui.css}">
     <link rel="stylesheet" th:href="@{/layui/css/login.css}">
 </head>
-<body>
+<body background="/images/background.jpg">
 <div class="login-main">
-    <header class="layui-elip">登录</header>
-    <div class="layui-input-inline"style="text-align: center">
+    <div style="background-color: rgba(0,0,0,0);opacity: 0.8">
+    <header class="layui-elip" style="color: white;margin-bottom: 5px">登录</header>
+    <div class="layui-form"style="text-align: center;margin-bottom: 5px">
         <p th:text="${session.msg}" style="color: #ff0000"></p>
     </div>
     <form class="layui-form" th:action="@{user/login}" method="post">
@@ -28,15 +29,15 @@
                    placeholder="验证码" autocomplete="off"  required="required"
                    class="layui-input" data-parsley-required-message="请输入验证码！"/>
         </div>
-        <div class="layui-input-inline">
+        <div class="layui-input-inline" style="cursor: pointer" >
             <img src="/code" alt="验证码" title="点击更换" onclick="this.src='/code?'+Math.random()"/>
         </div>
         <div class="layui-input-inline login-btn">
             <button class="layui-btn">登录</button>
         </div>
-        <hr/>
-        <p><a href="/regists/init" class="fl">立即注册</a><a href="/repwd/init" class="fr">忘记密码？</a></p>
+        <p ><a href="/regists/init" class="fl" style="color: white">立即注册</a><a href="/repwd/init" class="fr" style="color:white;">忘记密码？</a></p>
     </form>
+    </div>
 </div>
 
 
