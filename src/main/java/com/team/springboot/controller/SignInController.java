@@ -49,7 +49,7 @@ public class SignInController {
         if(userService.selectUserById(account).getU_Password().equals(password)){
             session.setAttribute("u_Account",account);
             System.out.println("ok");
-            return "redirect:/admin/userInfo";
+            return "redirect:/showAll";
         }
         else {
             session.setAttribute("msg","用户名或密码错误");

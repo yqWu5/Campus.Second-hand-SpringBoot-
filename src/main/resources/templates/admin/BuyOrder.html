@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
     <title>校园二手物品后台</title>
     <link rel="stylesheet" th:href="@{/layui/css/layui.css}"/>
+    <style type="text/css">
+        .layui-table-cell{
+            height: auto!important;
+            white-space: normal;
+        }
+    </style>
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
@@ -14,6 +20,7 @@
         <ul class="layui-nav layui-layout-left">
             <li class="layui-nav-item"><a href="/admin/userinit">用户管理</a></li>
             <li class="layui-nav-item"><a href="/admin/init">商品管理</a></li>
+            <li class="layui-nav-item"><a href="/admin/shoppingCarInit">购物车管理</a></li>
             <li class="layui-nav-item">
                 <a href="javascript:;">订单管理</a>
                 <dl class="layui-nav-child">
@@ -67,6 +74,12 @@
     <div class="layui-body" >
         <!-- 内容主体区域 -->
         <div style="padding: 15px;">
+            <div class="demoTable" style="margin-top: 10px;margin-left: 10px;">
+                <div class="layui-col-md4">
+                    <input class="layui-input" name="SearchName" id="demoReload" autocomplete="off" placeholder="请输入商品名称">
+                </div>
+                <button class="layui-btn" data-type="reload" >搜索</button>
+            </div>
             <table id="orderInfo" lay-filter="test"></table>
         </div>
     </div>
@@ -91,8 +104,24 @@
         const form = layui.form;
         const layer = layui.layer;
         const table = layui.table;
-        const $ = layui.$;
         form.render();
+
+        // 监听搜索按钮
+        const $ = layui.$, active = {
+            reload: function(){
+                var demoReload = $('#demoReload');
+
+                table.reload('reloadTest', {
+                    where: {
+                        SearchName: demoReload.val()
+                    }
+                });
+            }
+        };
+        $('.demoTable .layui-btn').on('click', function(){
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
 
         const tableIns = table.render({
             elem: '#orderInfo'
@@ -101,15 +130,17 @@
             ,id: 'reloadTest'
             ,limit: 10
             ,cols: [[ //表头
-                {field: 'o_Id', title: '订单编号',  sort: true, fixed: 'left', width: 200}
+                {field: 'o_Id', title: '订单编号',  sort: true, width: 200}
+                ,{field: 'p_href', title: '图片展示',templet: "<div><img  src=\"{{ d.p_href }}\"></div>"}
                 ,{field: 'o_Seller', title: '卖家ID', width: 150}
                 ,{field: 'p_Title', title: '商品标题', }
                 ,{field: 'o_Baddress', title: '收货地址'}
-                ,{fixed: 'right', title: '操作',width:320, align:'center', toolbar: '#barDemo'}
+                ,{title: '操作',width:320, align:'center', toolbar: '#barDemo'}
             ]]
         });
 
         table.on('tool(test)', function (obj){
+            const $ = layui.$;
             const data = obj.data;
             const layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
             const tr = obj.tr; //获得当前行 tr 的 DOM 对象（如果有的话）
@@ -195,5 +226,14 @@
 
 
 </script>
+<style type="text/css">
+    .laytable-cell-1-p_href{
+        height:100%;
+        max-width:100%
+    }
+    .layui-table-cell{
+        text-align:center;
+    }
+</style>
 </body>
 </html>

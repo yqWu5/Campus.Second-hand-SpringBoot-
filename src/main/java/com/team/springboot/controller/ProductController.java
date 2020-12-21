@@ -195,7 +195,9 @@ public class ProductController {
                        @RequestParam("p_Price") Double p_Price,
                        @RequestParam("p_Des") String p_Des,
                        @RequestParam("c_Id") String c_Id){
+
         ProductCategory productCategory = new ProductCategory();
+        productCategory.setP_Id(productCategoryService.selectMaxP_Id()+1);
         productCategory.setP_Account(p_Account);
         productCategory.setP_Date(p_Date);
         productCategory.setP_Des(p_Des);

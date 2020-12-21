@@ -51,4 +51,9 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
     public List<ProductCategory> selectAllcName() {
         return productCategoryMapper.selectAllcName();
     }
+
+    @Override
+    public int selectMaxP_Id() {
+        return productCategoryMapper.selectMaxP_Id();
+    }
 }

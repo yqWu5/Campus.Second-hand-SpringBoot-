@@ -10,6 +10,7 @@ public class Order {
     private String o_Saddress;
     private String p_Title;
     private String o_Status;
+    private String p_href;
 
 //    @Override
 //    public String toString() {
@@ -19,6 +20,14 @@ public class Order {
 
     public Order() {
 
+    }
+
+    public String getP_href() {
+        return p_href;
+    }
+
+    public void setP_href(String p_href) {
+        this.p_href = p_href;
     }
 
     public String getO_Status() {
