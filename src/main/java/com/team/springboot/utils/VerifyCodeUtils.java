@@ -18,7 +18,7 @@ public class VerifyCodeUtils {
     // 字符数量
     private static final int SIZE = 6;
     // 干扰线数量
-    private static final int LINES = 7;
+    private static final int LINES = 3;
     // 宽度
     private static final int WIDTH = 350;
     // 高度
@@ -39,7 +39,7 @@ public class VerifyCodeUtils {
         // 2.获取图片画笔
         Graphics graphic = image.getGraphics();
         // 3.设置画笔颜色
-        graphic.setColor(Color.LIGHT_GRAY);
+        graphic.setColor(new Color(255,255,255,100));
         // 4.绘制矩形背景
         graphic.fillRect(0, 0, WIDTH, HEIGHT);
         // 5.画随机字符

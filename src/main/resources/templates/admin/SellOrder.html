@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
@@ -119,10 +119,7 @@
                     area: ['300px','226px'],
                     resize: false,
                     cancel: function (index, layero){
-                        table.reload('reloadTest',{
-                            url: 'BuyOrderInfo',
-                            where: {}
-                        })
+                        tableIns.reload();
                     },
                     content:'OrderStatusInit',
                     success: function (layero, index){
