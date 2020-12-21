@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,14 +44,25 @@ public class OrderController {
     //买入-订单表格初始化
     @RequestMapping("/BuyOrderInfo")
     @ResponseBody
-    public BaseResponse BuyOrderInfo(HttpSession session, Model m, int page, int limit){
+    public BaseResponse BuyOrderInfo(HttpServletRequest req, Model m, int page, int limit){
         BaseResponse<List<Order>> baseResponse = new BaseResponse<>();
-        String account = (String)session.getAttribute("u_Account");
+        String account = (String)req.getSession().getAttribute("u_Account");
         int count = orderService.orderBuyerCount(account);
+        String SearchName = "%" + req.getParameter("SearchName") + "%";
+
+        if(SearchName != null){
+            List<Order> list = orderService.selectOrderAndProductBuyBySearchName(account, SearchName, (page - 1) * limit, limit);
+            baseResponse.setCode(0);
+            baseResponse.setData(list);
+            baseResponse.setCount(count);
+            return baseResponse;
+        }
+
+        System.out.println(SearchName);
 
         List<Order> list = orderService.selectOrderAndProductBuy(account, (page - 1) * limit, limit);
-        session.setAttribute("StatusCode1","Buy");
-        session.setAttribute("StatusCode2","Buy");
+        req.getSession().setAttribute("StatusCode1","Buy");
+        req.getSession().setAttribute("StatusCode2","Buy");
         baseResponse.setCode(0);
         baseResponse.setData(list);
         baseResponse.setCount(count);

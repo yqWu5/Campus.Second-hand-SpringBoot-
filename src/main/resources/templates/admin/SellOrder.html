@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
     <title>校园二手物品后台</title>
     <link rel="stylesheet" th:href="@{/layui/css/layui.css}"/>
+    <style type="text/css">
+        .layui-table-cell{
+            height: auto!important;
+            white-space: normal;
+        }
+    </style>
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
@@ -98,11 +104,12 @@
             ,id : 'reloadTest'
             ,limit: 10
             ,cols: [[ //表头
-                {field: 'o_Id', title: '订单编号',  sort: true, fixed: 'left', width: 200}
+                {field: 'o_Id', title: '订单编号',  sort: true, width: 200}
+                ,{field: 'p_href', title: '图片展示',templet: "<div><img  src=\"{{ d.p_href }}\"></div>"}
                 ,{field: 'o_Buyer', title: '买家ID', width: 150}
                 ,{field: 'p_Title', title: '商品标题'}
                 ,{field: 'o_Baddress', title: '收货地址', }
-                ,{fixed: 'right', title: '操作',width:320, align:'center', toolbar: '#barDemo'}
+                ,{title: '操作',width:320, align:'center', toolbar: '#barDemo'}
             ]]
         });
 
@@ -166,6 +173,14 @@
         });
     });
 </script>
-
+<style type="text/css">
+    .laytable-cell-1-p_href{
+        height:100%;
+        max-width:100%
+    }
+    .layui-table-cell{
+        text-align:center;
+    }
+</style>
 </body>
 </html>

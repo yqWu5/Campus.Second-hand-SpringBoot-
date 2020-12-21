@@ -15,4 +15,6 @@ public interface OrderService {
     int orderBuyerCount(String o_Buyer);
     int orderSellerCount(String o_Seller);
     void StatusUpdate(Order o);
+    List<Order> selectOrderAndProductBuyBySearchName(String Buy_Account,String SearchName, int page, int limit);
+    List<Order> selectOrderAndProductSellBySearchName(String account,String SearchName, int page, int limit);
 }

@@ -73,7 +73,7 @@
 
     <div class="layui-body">
         <!-- 内容主体区域 -->
-        <div class="demoTable" style="margin-top: 10px">
+        <div class="demoTable" style="margin-top: 10px;margin-left: 10px;">
             <div class="layui-col-md4">
                 <input class="layui-input" name="productId" id="demoReload" autocomplete="off" placeholder="请输入商品名称">
             </div>
@@ -223,6 +223,7 @@
                 });
             }
         });
+        // 监听搜索按钮
         var $ = layui.$, active = {
             reload: function(){
                 var demoReload = $('#demoReload');
@@ -238,6 +239,7 @@
             var type = $(this).data('type');
             active[type] ? active[type].call(this) : '';
         });
+
         table.on('toolbar(test)', function(obj){
             const $=layui.$;
             var checkStatus = table.checkStatus(obj.config.id);
