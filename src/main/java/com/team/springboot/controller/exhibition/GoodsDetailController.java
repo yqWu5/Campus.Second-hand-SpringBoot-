@@ -45,6 +45,7 @@ public class GoodsDetailController   {
        if(account == null || account.equals("")){
            baseResponse.setCode(500);
            baseResponse.setMsg("请登录账号");
+           System.out.println("cesi");
            return baseResponse;
        }
        shoppingCarService.insertOne(account,p.getP_Id());
