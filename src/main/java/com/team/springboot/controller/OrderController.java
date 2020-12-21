@@ -48,25 +48,27 @@ public class OrderController {
         BaseResponse<List<Order>> baseResponse = new BaseResponse<>();
         String account = (String)req.getSession().getAttribute("u_Account");
         int count = orderService.orderBuyerCount(account);
-        String SearchName = "%" + req.getParameter("SearchName") + "%";
+        String SearchName = req.getParameter("SearchName");
+        String Search = "%" + SearchName + "%";
+        System.out.println(SearchName);
 
-        if(SearchName != null){
-            List<Order> list = orderService.selectOrderAndProductBuyBySearchName(account, SearchName, (page - 1) * limit, limit);
+        if(SearchName == null){
+            System.out.println("test");
+            List<Order> list = orderService.selectOrderAndProductBuy(account, (page - 1) * limit, limit);
+            req.getSession().setAttribute("StatusCode1","Buy");
+            req.getSession().setAttribute("StatusCode2","Buy");
             baseResponse.setCode(0);
             baseResponse.setData(list);
             baseResponse.setCount(count);
             return baseResponse;
         }
 
-        System.out.println(SearchName);
-
-        List<Order> list = orderService.selectOrderAndProductBuy(account, (page - 1) * limit, limit);
-        req.getSession().setAttribute("StatusCode1","Buy");
-        req.getSession().setAttribute("StatusCode2","Buy");
+        List<Order> list1 = orderService.selectOrderAndProductBuyBySearchName(account, Search, (page - 1) * limit, limit);
         baseResponse.setCode(0);
-        baseResponse.setData(list);
+        baseResponse.setData(list1);
         baseResponse.setCount(count);
         return baseResponse;
+
     }
 
     //出售-订单转跳
@@ -77,16 +79,26 @@ public class OrderController {
     //出售-订单表格初始化
     @RequestMapping("/SellOrderInfo")
     @ResponseBody
-    public BaseResponse SellOrderInfo(HttpSession session, int page, int limit){
+    public BaseResponse SellOrderInfo(HttpServletRequest req, int page, int limit){
         BaseResponse<List<Order>> baseResponse = new BaseResponse<>();
-        String account = (String)session.getAttribute("u_Account");
+        String account = (String)req.getSession().getAttribute("u_Account");
         int count = orderService.orderSellerCount(account);
         List<Order> list = orderService.selectOrderAndProductSell(account, (page - 1) * limit, limit);
+        String SearchName = req.getParameter("SearchName");
+        String Search = "%" + SearchName + "%";
 
-        session.setAttribute("StatusCode2","Sell");
-        session.setAttribute("StatusCode1","Sell");
+        if(SearchName == null){
+            req.getSession().setAttribute("StatusCode2","Sell");
+            req.getSession().setAttribute("StatusCode1","Sell");
+            baseResponse.setCode(0);
+            baseResponse.setData(list);
+            baseResponse.setCount(count);
+            return baseResponse;
+        }
+
+        List<Order> list1 = orderService.selectOrderAndProductSellBySearchName(account, Search, (page - 1) * limit, limit);
         baseResponse.setCode(0);
-        baseResponse.setData(list);
+        baseResponse.setData(list1);
         baseResponse.setCount(count);
         return baseResponse;
     }

@@ -73,6 +73,12 @@
     <div class="layui-body" >
         <!-- 内容主体区域 -->
         <div style="padding: 15px;">
+            <div class="demoTable" style="margin-top: 10px;margin-left: 10px;">
+                <div class="layui-col-md4">
+                    <input class="layui-input" name="SearchName" id="demoReload" autocomplete="off" placeholder="请输入商品名称">
+                </div>
+                <button class="layui-btn" data-type="reload" >搜索</button>
+            </div>
             <table id="orderBuy" lay-filter="test"></table>
         </div>
     </div>
@@ -94,7 +100,6 @@
         const form = layui.form;
         const layer = layui.layer;
         const table = layui.table
-        const $ = layui.$;
         form.render();
 
         const tableIns = table.render({
@@ -113,7 +118,25 @@
             ]]
         });
 
+        // 监听搜索按钮
+        const $ = layui.$, active = {
+            reload: function(){
+                var demoReload = $('#demoReload');
+
+                table.reload('reloadTest', {
+                    where: {
+                        SearchName: demoReload.val()
+                    }
+                });
+            }
+        };
+        $('.demoTable .layui-btn').on('click', function(){
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+
         table.on('tool(test)', function (obj){
+            const $ = layui.$;
             const data = obj.data;
             const layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
             const tr = obj.tr; //获得当前行 tr 的 DOM 对象（如果有的话）

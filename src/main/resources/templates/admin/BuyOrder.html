@@ -105,6 +105,23 @@
         const table = layui.table;
         form.render();
 
+        // 监听搜索按钮
+        const $ = layui.$, active = {
+            reload: function(){
+                var demoReload = $('#demoReload');
+
+                table.reload('reloadTest', {
+                    where: {
+                        SearchName: demoReload.val()
+                    }
+                });
+            }
+        };
+        $('.demoTable .layui-btn').on('click', function(){
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+
         const tableIns = table.render({
             elem: '#orderInfo'
             ,url: 'BuyOrderInfo' //数据接口
@@ -202,22 +219,6 @@
                     }
                 });
             }
-        });
-        // 监听搜索按钮
-        const $ = layui.$, active = {
-            reload: function(){
-                var demoReload = $('#demoReload');
-
-                table.reload('reloadTest', {
-                    where: {
-                        SearchName: demoReload.val()
-                    }
-                });
-            }
-        };
-        $('.demoTable .layui-btn').on('click', function(){
-            var type = $(this).data('type');
-            active[type] ? active[type].call(this) : '';
         });
 
     });
