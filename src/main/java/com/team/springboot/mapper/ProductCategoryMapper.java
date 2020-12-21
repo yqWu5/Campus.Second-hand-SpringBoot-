@@ -11,7 +11,7 @@ import java.util.List;
 public interface ProductCategoryMapper {
     @Select("Select c_Id from Controller where c_Name=#{0}")
     String selectCidBycName(String c_Name);
-    @Insert("insert into product(p_Account,p_Name,c_Id,p_Title,p_Des,p_Price,p_Date) values(#{p_Account}, #{p_Name}, #{c_Id}, #{p_Title}, #{p_Des},#{p_Price},#{p_Date})")
+    @Insert("insert into product(p_Id, p_Account,p_Name,c_Id,p_Title,p_Des,p_Price,p_Date) values(#{p_Id},#{p_Account}, #{p_Name}, #{c_Id}, #{p_Title}, #{p_Des},#{p_Price},#{p_Date})")
     void insertProductCategory(ProductCategory productCategory);
     @Select("select p_Id,p_Account,p_Name,c_Name,p_Title,p_Price,p_href,p_href1 from product inner join Category on product.c_Id=Category.c_Id limit #{0}, #{1}")
     List<ProductCategory> selectProductCategorys(int page, int limit);
@@ -28,4 +28,7 @@ public interface ProductCategoryMapper {
 
     @Select("select c_Name from category")
     List<ProductCategory>selectAllcName();
+
+    @Select("select max(p_Id) from product")
+    int selectMaxP_Id();
 }

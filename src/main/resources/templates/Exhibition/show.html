@@ -206,7 +206,7 @@
 	<!-- 商品栏 -->
 	 <div class="box">
 	            <!--一个商品-->
-	            <dl th:each="p:${productList}" style="margin-left: 50px;margin-bottom: 100px;">
+	            <dl th:each="p:${productList.list}" style="margin-left: 50px;margin-bottom: 100px;">
 	                <dt>
 	                    <a href="#">
 	                        <img th:src="${p.getP_href()}"  style="width: 150px;height: 150px;"/>
@@ -218,6 +218,8 @@
 	                    <span th:text="${p.getP_Price()}"></span>
 	                </dd>
 	            </dl>
+
+
 	 </div>
 	
 	

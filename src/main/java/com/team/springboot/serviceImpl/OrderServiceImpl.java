@@ -63,4 +63,14 @@ public class OrderServiceImpl implements OrderService {
     public List<Order> selectOrderAndProductSellBySearchName(String account, String SearchName, int page, int limit) {
         return orderMapper.selectOrderAndProductSellBySearchName(account, SearchName, page, limit);
     }
+
+    @Override
+    public int selectOrderCount() {
+        return orderMapper.selectOrderCount();
+    }
+
+    @Override
+    public void insertOne(Order o) {
+        orderMapper.insertOne(o);
+    }
 }

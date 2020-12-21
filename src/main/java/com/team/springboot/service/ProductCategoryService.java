@@ -15,4 +15,5 @@ public interface ProductCategoryService {
     List<ProductCategory>selectProductCategorysByp_name(int page, int limit,String p_Name);
     List<ProductCategory>selectProductCategorysByp_nameAndaccount(int page, int limit,String p_Name,String p_Account);
     List<ProductCategory>selectAllcName();
+    int selectMaxP_Id();
 }

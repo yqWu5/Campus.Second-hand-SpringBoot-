@@ -25,7 +25,7 @@
                     <a th:href="@{/login}">同学，请登录</a>
                 </li>
                 <li>
-                    <a href="javascript:;">免费注册</a>
+                    <a href="/regists/init">免费注册</a>
                 </li>
 
             </ul>
@@ -34,7 +34,7 @@
                     <a href="javascript:;" class="arrow">我的平台</a>
                 </li>
                 <li>
-                    <a href="javascript:;" class="arrow">购物车</a>
+                    <a href="/admin/shoppingCarInit" class="arrow">购物车</a>
                 </li>
                 <li>
                     <span class="start" class="arrow"></span>
@@ -286,14 +286,23 @@
             <div class="icon"></div>热卖单品
         </h1>
         <div class="content">
-            <div class="item"  th:each="p:${productList}">
+            <div class="item"  th:each="p:${productList.list}">
                 <a th:href="@{/goodsDetail(pid=${p.getP_Id()})}">
                     <img th:src="${p.getP_href()}"  style="width: 150px;height: 150px;"/>
                 </a>
                 <p class="line-limit-length"> <a href="#" th:text="${p.getP_Title()}"></a></p>
                 <span th:text="${p.getP_Price()}"></span>
             </div>
+        </div>
 
+        <div style="text-align:center;font-size: 60px;">
+            <a th:href="@{/showAll(pageNo=${productList.firstPage})}">首页</a>
+
+            <a th:if="${productList.hasPreviousPage}" th:href="@{/showAll(pageNo=${productList.prePage})}">上一页</a>
+
+            <a th:if="${productList.hasNextPage}" th:href="@{/showAll(pageNo=${productList.nextPage})}">下一页</a>
+
+            <a th:href="@{/showAll(pageNo=${productList.lastPage})}">末页</a>
         </div>
     </div>
 
