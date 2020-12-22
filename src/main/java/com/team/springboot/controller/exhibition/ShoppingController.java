@@ -30,7 +30,6 @@ public class ShoppingController {
         BaseResponse<List<ShoppingCarProduct>> baseResponse = new BaseResponse<>();
         String account = (String)req.getSession().getAttribute("u_Account");
         int count = shoppingCarService.getCountByAccount(account);
-
         List<ShoppingCarProduct> list = shoppingCarService.selectShoppingCarProductById(account,(page - 1) * limit, limit);
         baseResponse.setCount(count);
         baseResponse.setCode(200);
