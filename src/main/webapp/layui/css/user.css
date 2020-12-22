@@ -194,11 +194,11 @@
     width: 700px;
     height: 500px;
     padding-top: 5px;
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-    justify-content: space-between;
-    box-sizing: border-box;
+    /*display: flex;*/
+    /*flex-wrap: wrap;*/
+    /*flex-direction: column;*/
+    /*justify-content: space-between;*/
+    /*box-sizing: border-box;*/
 }
 /* 右区域 */
 .body-1 .shop .tu-right{ 
