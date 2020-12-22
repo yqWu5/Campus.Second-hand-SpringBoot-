@@ -28,4 +28,15 @@ public class showController {
         m.addAttribute("productList",pageInfo);
         return "Exhibition/user";
     }
+    @RequestMapping("/search")
+    public String search(Model m,@RequestParam(defaultValue="1",required=true,value="pageNo") Integer pageNo,
+                    @RequestParam("search")String search){
+        Integer pageSize = 15;
+        search="%"+search+"%";
+        PageHelper.startPage(pageNo,pageSize);
+        List<ProductCategory> list = productCategoryService.selectProductCategorysByp_name1(search);
+        PageInfo<ProductCategory> pageInfo = new PageInfo<ProductCategory>(list,pageSize);
+        m.addAttribute("productList",pageInfo);
+        return "Exhibition/user";
+    }
 }

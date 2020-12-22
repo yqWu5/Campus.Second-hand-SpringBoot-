@@ -56,4 +56,9 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
     public int selectMaxP_Id() {
         return productCategoryMapper.selectMaxP_Id();
     }
+
+    @Override
+    public List<ProductCategory> selectProductCategorysByp_name1(String p_Name) {
+        return productCategoryMapper.selectProductCategorysByp_name1(p_Name);
+    }
 }

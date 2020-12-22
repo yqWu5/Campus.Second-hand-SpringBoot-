@@ -48,7 +48,7 @@ public class SignInController {
 
         if(userService.selectUserById(account).getU_Password().equals(password)){
             session.setAttribute("u_Account",account);
-            System.out.println("ok");
+            session.setAttribute("url", userService.selectUserById(account).getU_Url());
             return "redirect:/showAll";
         }
         else {

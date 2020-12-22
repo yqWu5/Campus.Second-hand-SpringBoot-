@@ -31,4 +31,7 @@ public interface ProductCategoryMapper {
 
     @Select("select max(p_Id) from product")
     int selectMaxP_Id();
+
+    @Select("select p_href, p_Id,p_Account,p_Name,c_Name,p_Title,p_Price from product inner join Category on product.c_Id=Category.c_Id where (p_Title like #{0} OR p_Name like #{0})")
+    List<ProductCategory>selectProductCategorysByp_name1(String p_Name);
 }
