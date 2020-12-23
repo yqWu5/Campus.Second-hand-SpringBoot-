@@ -45,4 +45,8 @@ public interface ProductMapper {
 
     @Select("select * from product where p_Id = #{p_Id}")
     Product selectById(int p_Id);
+
+    //用于前台判断是否购买自己的物品
+    @Select("select p_Account from product where p_Id = #{p_Id}")
+    String selectP_Account(int p_Id);
 }

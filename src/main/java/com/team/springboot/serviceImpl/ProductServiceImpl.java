@@ -80,4 +80,9 @@ public class ProductServiceImpl implements ProductService {
         return productMapper.selectCountByp_nameAndaccount(p_Account, p_Name);
     }
 
+    @Override
+    public String selectP_Account(int p_Id) {
+        return productMapper.selectP_Account(p_Id);
+    }
+
 }

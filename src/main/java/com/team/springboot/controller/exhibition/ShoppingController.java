@@ -19,11 +19,13 @@ public class ShoppingController {
     @Autowired
     ShoppingCarService shoppingCarService;
 
+    //购物车页面转跳
     @RequestMapping("/shoppingCarInit")
     public String shoppingCarInit(){
         return "admin/shoppingcar";
     }
 
+    //购物车表格数据接口
     @RequestMapping("/shoppingCarAll")
     @ResponseBody
     public BaseResponse shoppingCarAll(HttpServletRequest req ,int page, int limit){
@@ -36,6 +38,8 @@ public class ShoppingController {
         baseResponse.setData(list);
         return baseResponse;
     }
+
+    //购物车删除功能
     @RequestMapping("/shoppingCardelete")
     @ResponseBody
     public  BaseResponse shoppingCardelete(@RequestParam("s_Id") int s_Id){

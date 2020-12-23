@@ -85,9 +85,17 @@ public class GoodsDetailController   {
        Order o = new Order(); // 要插入到订单表里的实体
        int count = orderService.selectOrderCount();
 
+       //没有登录账号，无法购买
        if(account == null || account.equals("")){
            baseResponse.setCode(500);
            baseResponse.setMsg("请登录账号");
+           return baseResponse;
+       }
+
+       //如果是购买自己的商品，则拒绝
+       if(account.equals(productService.selectP_Account(b.getP_Id()))){
+           baseResponse.setCode(500);
+           baseResponse.setMsg("请不要购买自己所上架的商品");
            return baseResponse;
        }
 

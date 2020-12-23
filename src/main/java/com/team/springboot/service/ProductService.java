@@ -18,4 +18,5 @@ public interface ProductService {
     Product selectById(int p_Id);
     int selectCountByp_Name(String p_Name);
     int selectCountByp_nameAndaccount(String p_Account,String p_Name);
+    String selectP_Account(int p_Id);
 }
