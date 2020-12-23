@@ -59,12 +59,13 @@ public class GoodsDetailController   {
    //购买商品layer初始化
    @RequestMapping("/buyGoodsInit")
    public String buyGoodsInit(@RequestParam("p_Id") String p_Id, HttpServletRequest req, Model m){
-       System.out.println(p_Id);
         String account = (String)req.getSession().getAttribute("u_Account");
         Product p = goodsService.selectProduct(Integer.valueOf(p_Id));
         Address a  = orderService.selectAddressValue(account);
         List<String> list = new ArrayList<>();
-
+        if(account == null){
+            return "admin/error";
+        }
         m.addAttribute("p",p);
         list.add(a.getA_Address1());
         list.add(a.getA_Address2());
