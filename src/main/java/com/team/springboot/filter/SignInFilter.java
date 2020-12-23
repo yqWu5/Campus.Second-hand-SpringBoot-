@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebFilter(urlPatterns = "/*",filterName = "logFilter")
+@WebFilter(urlPatterns = "/admin/*",filterName = "logFilter")
 public class SignInFilter implements Filter {
 
     @Override
@@ -26,6 +26,10 @@ public class SignInFilter implements Filter {
                 req.getRequestURL().indexOf("layui")!=-1||
                 req.getRequestURL().indexOf("repwd")!=-1||
                 req.getRequestURL().indexOf("code")!=-1||
+//                req.getRequestURI().indexOf("showAll") !=-1 ||
+//                req.getRequestURI().indexOf("goods") !=-1 ||
+//                req.getRequestURI().indexOf("search") !=-1 ||
+//                req.getRequestURI().indexOf("shopping") !=-1 ||
                 req.getRequestURL().indexOf("background")!=-1) {
             filterChain.doFilter(servletRequest, servletResponse);
         }

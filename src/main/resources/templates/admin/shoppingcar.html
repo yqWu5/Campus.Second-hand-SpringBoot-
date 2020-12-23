@@ -24,8 +24,8 @@
             <li class="layui-nav-item">
                 <a href="javascript:;">订单管理</a>
                 <dl class="layui-nav-child">
-                    <dd><a th:href="@{/admin/BuyOrderInit}">买入-订单</a></dd>
-                    <dd><a th:href="@{/admin/SellOrderInit}">出售-订单</a></dd>
+                    <dd><a th:href="@{/admin/BuyOrderInit}">我是买家</a></dd>
+                    <dd><a th:href="@{/admin/SellOrderInit}">我是卖家</a></dd>
                 </dl>
             </li>
         </ul>
@@ -37,11 +37,6 @@
                 </a>
                 <dl class="layui-nav-child">
                     <dd><a href="/admin/userInfo">基本资料</a></dd>
-                    <dd><a href="">安全设置</a></dd>
-                </dl>
-                <dl class="layui-nav-child">
-                    <dd><a href="/admin/userInfo">基本资料</a></dd>
-                    <dd><a href="">安全设置</a></dd>
                 </dl>
             </li>
             <li class="layui-nav-item"><a href="/admin/quit">退了</a></li>
@@ -70,7 +65,7 @@
                     </dl>
                 </li>
                 <li class="layui-nav-item"><a href="">云市场</a></li>
-                <li class="layui-nav-item"><a href="">发布商品</a></li>
+                <<li class="layui-nav-item"><a th:href="@{/showAll}">返回前台</a></li>
             </ul>
         </div>
     </div>

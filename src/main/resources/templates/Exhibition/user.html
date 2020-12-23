@@ -25,32 +25,19 @@
                     <a th:href="@{/login}">同学，请登录</a>
                 </li>
                 <li>
-                    <a href="/regists/init">免费注册</a>
+                    <a th:href="@{/regists/init}">免费注册</a>
                 </li>
 
             </ul>
             <ul class="nav">
                 <li>
-                    <a href="javascript:;" class="arrow">我的平台</a>
+                    <a th:href="@{/admin/userInfo}" class="arrow">我的平台</a>
                 </li>
                 <li>
-                    <a href="/admin/shoppingCarInit" class="arrow">购物车</a>
+                    <a th:href="@{/admin/shoppingCarInit}" class="arrow">购物车</a>
                 </li>
                 <li>
-                    <span class="start" class="arrow"></span>
-                    <a href="javascript:;">收藏夹</a>
-                </li>
-                <li>
-                    <a href="javascript:;" class="arrow">物品分类</a>
-                </li>
-                <li>
-                    <a href="javascript:;" class="arrow">卖家中心</a>
-                </li>
-                <li>
-                    <a href="javascript:;" class="arrow">联系客服</a>
-                </li>
-                <li>
-                    <a href="javascript:;" class="arrow">网站导航</a>
+                    <a th:href="@{/admin/userInfo}" class="arrow">卖家中心</a>
                 </li>
             </ul>
         </div>
@@ -58,10 +45,8 @@
 
     <div class="body-1">
         <!-- 搜索框 -->
-
         <div class="search">
             <div class="search-logo">
-                <a href="https://www.taobao.com/"></a>
             </div>
             <div class="search-box">
                 <ul class="search-tab">
@@ -75,15 +60,15 @@
                 </form>
 
                 <div class="search-choose">
-                    <a href="javascript:;">新款教材</a>
-                    <a href="javascript:;">电动车</a>
-                    <a href="javascript:;" class="tx">自行车</a>
-                    <a href="javascript:;">往年考试例卷</a>
-                    <a href="javascript:;">衣服甩卖</a>
-                    <a href="javascript:;">床上书桌</a>
-                    <a href="javascript:;">电脑</a>
-                    <a href="javascript:;">四六级收音机</a>
-                    <a href="javascript:;">耳机</a>
+                    <a href="/search?search=书">新款教材</a>
+                    <a href="/search?search=电动车">电动车</a>
+                    <a href="/search?search=自行车" class="tx">自行车</a>
+                    <a href="/search?search=试卷">往年考试例卷</a>
+                    <a href="/search?search=衣服">衣服甩卖</a>
+                    <a href="/search?search=床上桌">床上书桌</a>
+                    <a href="/search?search=电脑">电脑</a>
+                    <a href="/search?search=收音机">四六级收音机</a>
+                    <a href="/search?search=耳机">耳机</a>
                 </div>
             </div>
             <div class="search-code">
@@ -111,67 +96,67 @@
             <!-- 左侧功能条 -->
             <ul class="left-items" id="left-items">
                 <li class="left-items-li">
-                    <a href="javascript:;">教材图书</a>
+                    <a href="/search?search=书">教材图书</a>
 
                 </li>
                 <li class="left-items-li">
-                    <a href="javascript:;">笔记本</a> /
-                    <a href="javascript:;">台式电脑</a> /
-                    <a href="javascript:;">平板电脑</a>
+                    <a href="/search?search=电脑">笔记本</a> /
+                    <a href="/search?search=电脑">台式电脑</a> /
+                    <a href="/search?search=电脑">平板电脑</a>
 
                 </li>
                 <li class="left-items-li">
-                    <a href="javascript:;">手表</a> /
-                    <a href="javascript:;">眼镜</a> /
-                    <a href="javascript:;">伞</a>
+                    <a href="/search?search=手表">手表</a> /
+                    <a href="/search?search=眼镜">眼镜</a> /
+                    <a href="/search?search=伞">伞</a>
 
                 </li>
                 <li class="left-items-li">
-                    <a href="javascript:;">网球</a> /
-                    <a href="javascript:;">网球拍</a> /
-                    <a href="javascript:;">乒乓球拍</a>
+                    <a href="/search?search=网球">网球</a> /
+                    <a href="/search?search=网球拍">网球拍</a> /
+                    <a href="/search?search=乒乓球拍">乒乓球拍</a>
 
                 </li>
                 <li class="left-items-li">
-                    <a href="javascript:;">足球鞋</a> /
-                    <a href="javascript:;">篮球鞋</a> /
-                    <a href="javascript:;">板鞋</a>
+                    <a href="/search?search=足球鞋">足球鞋</a> /
+                    <a href="/search?search=篮球鞋">篮球鞋</a> /
+                    <a href="/search?search=板鞋">板鞋</a>
 
                 </li>
                 <li class="left-items-li">
-                    <a href="javascript:;">手提包</a> /
-                    <a href="javascript:;">女士手表</a> /
-                    <a href="javascript:;">女装</a>
+                    <a href="/search?search=包">手提包</a> /
+                    <a href="/search?search=女生手表">女士手表</a> /
+                    <a href="女装/search?search=">女装</a>
 
                 </li>
                 <li class="left-items-li">
-                    <a href="javascript:;">冰箱</a> /
-                    <a href="javascript:;">沙发</a> /
-                    <a href="javascript:;">旅游箱</a>
+                    <a href="/search?search=冰箱">冰箱</a> /
+                    <a href="/search?search=沙发">沙发</a> /
+                    <a href="/search?search=旅游箱">旅游箱</a>
 
                 </li>
                 <li class="left-items-li">
-                    <a href="javascript:;">手机</a> /
-                    <a href="javascript:;">相机</a> /
-                    <a href="javascript:;">耳机</a>
+                    <a href="/search?search=手机">手机</a> /
+                    <a href="/search?search=相机">相机</a> /
+                    <a href="/search?search=耳机">耳机</a>
 
                 </li>
                 <li class="left-items-li">
-                    <a href="javascript:;">屏幕</a> /
-                    <a href="javascript:;">键盘</a> /
-                    <a href="javascript:;">鼠标</a>
+                    <a href="/search?search=屏幕">屏幕</a> /
+                    <a href="/search?search=键盘">键盘</a> /
+                    <a href="/search?search=鼠标">鼠标</a>
 
                 </li>
                 <li class="left-items-li">
-                    <a href="javascript:;">音乐专辑</a> /
-                    <a href="javascript:;">手办</a> /
-                    <a href="javascript:;">背包</a>
+                    <a href="/search?search=专辑">音乐专辑</a> /
+                    <a href="/search?search=手办">手办</a> /
+                    <a href="/search?search=背包">背包</a>
 
                 </li>
                 <li class="left-items-li">
-                    <a href="javascript:;">游戏机</a> /
-                    <a href="javascript:;">游戏手柄</a> /
-                    <a href="javascript:;">游戏卡</a>
+                    <a href="/search?search=游戏机">游戏机</a> /
+                    <a href="/search?search=游戏手柄">游戏手柄</a> /
+                    <a href="/search?search=游戏卡">游戏卡</a>
 
                 </li>
                 <li class="left-items-li">

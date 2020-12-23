@@ -17,7 +17,7 @@ public class showController {
 
     @Autowired
     ProductCategoryService productCategoryService;
-
+    //前台展示初始化
     @RequestMapping("/showAll")
     public String showAll(Model m,@RequestParam(defaultValue="1",required=true,value="pageNo") Integer pageNo){
         System.out.println(pageNo);
@@ -28,6 +28,7 @@ public class showController {
         m.addAttribute("productList",pageInfo);
         return "Exhibition/user";
     }
+    //前台搜索功能
     @RequestMapping("/search")
     public String search(Model m,@RequestParam(defaultValue="1",required=true,value="pageNo") Integer pageNo,
                     @RequestParam("search")String search){
