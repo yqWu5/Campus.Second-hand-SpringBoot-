@@ -39,6 +39,7 @@ public class UserController {
         String account = (String) session.getAttribute("u_Account");
         User user = userService.selectUserById(account);
         Address addr= userService.selectAddressAll(account);
+        session.setAttribute("url",user.getU_Url());
         m.addAttribute("user", user);
 
         if(addr == null) {
