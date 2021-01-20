@@ -1,4 +1,4 @@
-# Campus.Second-hand-SpringBoot-
+# Campus.Second-hand-SpringBoot
 
 Java菜鸟做的一个练手项目
 
