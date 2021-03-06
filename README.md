@@ -1,6 +1,4 @@
 # Campus.Second-hand-SpringBoot
-
-Java菜鸟做的一个练手项目
-
+就只是简单的增删改查啦
 前端：layui
 后端：springboot
